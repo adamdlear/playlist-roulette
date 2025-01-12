@@ -1,4 +1,5 @@
 import { GameCodeForm } from "@/components/landing/code-form";
+import { CreatePartyButton } from "@/components/landing/create-party-button";
 
 const Landing = () => {
     return (
@@ -11,7 +12,7 @@ const Landing = () => {
                 </div>
                 <p>or</p>
                 <div>
-                    <h2>Create your Own</h2>
+                    <CreatePartyButton />
                 </div>
             </div>
         </>
