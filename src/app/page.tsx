@@ -10,10 +10,12 @@ const Landing = () => {
                     <GameCodeForm />
                 </div>
                 <p>or</p>
-                <h2>Create your Own</h2>
+                <div>
+                    <h2>Create your Own</h2>
+                </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Landing;
