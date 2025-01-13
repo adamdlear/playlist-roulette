@@ -45,3 +45,16 @@ next-env.d.ts
 
 # open-next
 .open-next
+
+# Next.js
+web/.next/
+web/out/
+
+# Dependencies
+web/node_modules/
+server/node_modules/
+node_modules/
+
+# Environment
+web/.env
+web/.env.local
