@@ -47,14 +47,13 @@ next-env.d.ts
 .open-next
 
 # Next.js
-web/.next/
-web/out/
+packages/web/.next/
+packages/web/out/
 
 # Dependencies
-web/node_modules/
-server/node_modules/
+packages/web/node_modules/
 node_modules/
 
 # Environment
-web/.env
-web/.env.local
+packages/web/.env
+packages/web/.env.local
