@@ -1,9 +1,1 @@
-{
-    "extends": "./web/tsconfig.json",
-    "include": ["sst.config.ts"],
-    "compilerOptions": {
-      "module": "esnext",
-      "moduleResolution": "bundler",
-      "target": "esnext"
-    }
-}
+{}

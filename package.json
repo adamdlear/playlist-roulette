@@ -1,25 +1,16 @@
 {
-    "name": "playlist-roulette",
-    "version": "0.1.0",
-    "private": true,
-    "workspaces": [
-        "packages/*"
-    ],
-    "scripts": {
-        "dev": "sst dev",
-        "deploy": "sst deploy",
-        "remove": "sst remove",
-        "format": "prettier --write ."
-    },
-    "dependencies": {
-        "sst": "3.5.7"
-    },
-    "devDependencies": {
-        "@types/node": "^20",
-        "prettier": "^3.4.2",
-        "typescript": "^5"
-    },
-    "prettier": {
-        "tabWidth": 4
-    }
+  "name": "playlist-roulette",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "@tsconfig/node22": "^22",
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "sst": "^3"
+  }
 }
