@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowUp } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
@@ -17,6 +18,8 @@ const FormSchema = z.object({
 });
 
 export const GameCodeForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -26,6 +29,7 @@ export const GameCodeForm = () => {
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     console.log(`Joining game with code ${data.code}`);
+    router.push(`/lobby/${data.code}`);
   };
 
   return (
