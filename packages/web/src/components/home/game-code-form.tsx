@@ -42,7 +42,7 @@ export const GameCodeForm = () => {
           control={form.control}
           name="code"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="m-0 p-0 space-y-0">
               <FormControl>
                 <GameCodeInput maxLength={4} {...field} />
               </FormControl>

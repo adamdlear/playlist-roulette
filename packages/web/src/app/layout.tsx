@@ -32,7 +32,11 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        {session && <SpotifySignout />}
+        {session && (
+          <div className="flex justify-center">
+            <SpotifySignout />
+          </div>
+        )}
       </body>
     </html>
   );
