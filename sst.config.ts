@@ -10,8 +10,8 @@ export default $config({
         };
     },
     async run() {
-        //const tables = await import("./infra/tables");
-        //const apis = await import("./infra/api");
+        const tables = await import("./infra/tables");
+        const apis = await import("./infra/api");
 
         new sst.aws.Nextjs("PlaylistRoulette", {
             path: "./packages/web/",

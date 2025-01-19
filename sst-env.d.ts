@@ -5,8 +5,21 @@
 
 declare module "sst" {
     export interface Resource {
+        ConnectionsTable: {
+            name: string;
+            type: "sst.aws.Dynamo";
+        };
         PlaylistRoulette: {
             type: "sst.aws.Nextjs";
+            url: string;
+        };
+        SessionsTable: {
+            name: string;
+            type: "sst.aws.Dynamo";
+        };
+        WebsocketApi: {
+            managementEndpoint: string;
+            type: "sst.aws.ApiGatewayWebSocket";
             url: string;
         };
     }
