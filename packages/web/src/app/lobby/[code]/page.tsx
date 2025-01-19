@@ -1,27 +1,14 @@
-import { auth } from "@/auth";
-import { PlayerCard } from "@/components/lobby/player-card";
-import { SpotifySignin } from "@/components/spotify/spotify-signin";
+import { LobbyCard } from "@/components/lobby/lobby-card";
 import { Player } from "@/types/player";
 
 const LobbyPage = async ({ params }: { params: Promise<{ code: string }> }) => {
   const gameCode = (await params).code;
 
-  const session = await auth();
-
-  if (!session || !session.user) {
-    return <SpotifySignin />;
-  }
-
-  const player: Player = session.user;
-  player.isHost = true;
-  const players: Player[] = [player];
+  const players: Player[] = []; // getPlayers()
 
   return (
-    <div className="flex flex-col items-center">
-      <h1>{gameCode}</h1>
-      {players.map((player, index) => (
-        <PlayerCard player={player} key={index} />
-      ))}
+    <div className="min-h-screen bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 flex justify-center items-center">
+      <LobbyCard gameCode={gameCode} players={players} />
     </div>
   );
 };
