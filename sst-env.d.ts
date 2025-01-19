@@ -4,19 +4,14 @@
 /* deno-fmt-ignore-file */
 
 declare module "sst" {
-  export interface Resource {
-    "MyApi": {
-      "name": string
-      "type": "sst.aws.Function"
-      "url": string
+    export interface Resource {
+        PlaylistRoulette: {
+            type: "sst.aws.Nextjs";
+            url: string;
+        };
     }
-    "MyBucket": {
-      "name": string
-      "type": "sst.aws.Bucket"
-    }
-  }
 }
 /// <reference path="sst-env.d.ts" />
 
-import "sst"
-export {}
+import "sst";
+export {};

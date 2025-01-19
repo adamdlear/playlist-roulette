@@ -3,5 +3,5 @@
 import { Button } from "@/components/ui/button";
 
 export const CreatePartyButton = () => {
-  return <Button className="w-full">Create a Party</Button>;
+    return <Button className="w-full">Create a Party</Button>;
 };

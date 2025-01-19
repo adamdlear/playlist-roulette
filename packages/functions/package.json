@@ -1,12 +1,12 @@
 {
-  "name": "@playlist-roulette/functions",
-  "version": "0.0.0",
-  "type": "module",
-  "dependencies": {
-    "@playlist-roulette/core": "*",
-    "sst": "*"
-  },
-  "devDependencies": {
-    "@types/aws-lambda": "^8"
-  }
+    "name": "@playlist-roulette/functions",
+    "version": "0.0.0",
+    "type": "module",
+    "dependencies": {
+        "@playlist-roulette/core": "*",
+        "sst": "*"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8"
+    }
 }

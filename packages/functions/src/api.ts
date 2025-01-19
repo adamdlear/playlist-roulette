@@ -5,6 +5,6 @@ import { Example } from "@playlist-roulette/core/example";
 export const handler: Handler = async (_event) => {
     return {
         statusCode: 200,
-        body: `${Example.hello()} Linked to ${Resource.MyBucket.name}.`,
+        body: `${Example.hello()} Linked to my bucket`,
     };
 };

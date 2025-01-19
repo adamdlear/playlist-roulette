@@ -1,16 +1,19 @@
 {
-  "name": "playlist-roulette",
-  "version": "0.0.0",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {},
-  "devDependencies": {
-    "@tsconfig/node22": "^22",
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "sst": "^3"
-  }
+    "name": "playlist-roulette",
+    "version": "0.0.0",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "dev": "sst dev"
+    },
+    "devDependencies": {
+        "@tsconfig/node22": "^22",
+        "prettier": "3.4.2",
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "sst": "^3"
+    }
 }
