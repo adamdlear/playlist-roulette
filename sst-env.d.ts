@@ -9,13 +9,17 @@ declare module "sst" {
             name: string;
             type: "sst.aws.Dynamo";
         };
+        GameTable: {
+            name: string;
+            type: "sst.aws.Dynamo";
+        };
         PlaylistRoulette: {
             type: "sst.aws.Nextjs";
             url: string;
         };
-        SessionsTable: {
-            name: string;
-            type: "sst.aws.Dynamo";
+        RestApi: {
+            type: "sst.aws.ApiGatewayV2";
+            url: string;
         };
         WebsocketApi: {
             managementEndpoint: string;

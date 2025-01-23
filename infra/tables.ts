@@ -5,9 +5,9 @@ export const connectionsTable = new sst.aws.Dynamo("ConnectionsTable", {
     primaryIndex: { hashKey: "connectionId" },
 });
 
-export const sessionsTable = new sst.aws.Dynamo("SessionsTable", {
+export const gameTable = new sst.aws.Dynamo("GameTable", {
     fields: {
-        sessionId: "string",
+        gameId: "string",
     },
-    primaryIndex: { hashKey: "sessionId" },
+    primaryIndex: { hashKey: "gameId" },
 });
