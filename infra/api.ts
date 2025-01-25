@@ -13,4 +13,4 @@ wsApi.route("$disconnect", {
 export const restApi = new sst.aws.ApiGatewayV2("RestApi", {
     link: [gameTable],
 });
-restApi.route("PUT /game", "./packages/functions/src/game/put.ts");
+restApi.route("PUT /game", "./packages/functions/src/game/put.handler");
