@@ -2,8 +2,6 @@
 
 import { Resource } from "sst";
 import { auth, signIn } from "@/auth";
-import { generatePartyId } from "@/lib/party";
-import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 
 interface CreateGameActionResponse {
     gameId: string;
@@ -21,29 +19,22 @@ export const createGameAction = async (): Promise<CreateGameActionResponse> => {
     }
 
     const hostId = session.user.profileId;
-    const gameId = generatePartyId();
 
-    const putGameResponse = await addGameToTable(gameId, hostId);
+    const putGameResponse = await addGameToTable(hostId);
     if (!putGameResponse) {
         throw new Error("could put game in games table");
     }
 
     return {
-        gameId,
+        gameId: putGameResponse.gameId,
     };
 };
 
-const addGameToTable = async (gameId: string, hostId: string) => {
-    const dynamodb = new DynamoDBClient();
-
-    const command = new PutItemCommand({
-        TableName: Resource.GameTable.name,
-        Item: {
-            gameId: { S: gameId },
-            hostId: { S: hostId },
-            timestamp: { S: Date.now().toString() },
-        },
+const addGameToTable = async (hostId: string) => {
+    const response = await fetch(`${Resource.RestApi.url}/game`, {
+        method: "PUT",
+        body: JSON.stringify({ hostId }),
     });
 
-    return await dynamodb.send(command);
+    return await response.json();
 };
