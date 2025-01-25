@@ -1,10 +1,10 @@
-import { Resource } from "sst";
+import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import {
     APIGatewayProxyEvent,
-    Handler,
     APIGatewayProxyResult,
+    Handler,
 } from "aws-lambda";
-import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { Resource } from "sst";
 
 const dynamodb = new DynamoDBClient();
 
@@ -12,6 +12,8 @@ export const handler: Handler = async (
     event: APIGatewayProxyEvent,
 ): Promise<APIGatewayProxyResult> => {
     const connectionId = event.requestContext.connectionId;
+    const gameId = event.queryStringParameters?.gameId;
+
     if (!connectionId) {
         return {
             statusCode: 500,
@@ -19,10 +21,18 @@ export const handler: Handler = async (
         };
     }
 
+    if (!gameId) {
+        return {
+            statusCode: 400,
+            body: "Game ID is required",
+        };
+    }
+
     const command = new PutItemCommand({
         TableName: Resource.ConnectionsTable.name,
         Item: {
             connectionId: { S: connectionId },
+            gameId: { S: gameId },
             timestamp: { N: Date.now().toString() },
         },
     });

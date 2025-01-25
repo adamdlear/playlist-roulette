@@ -15,6 +15,7 @@ export default $config({
 
         new sst.aws.Nextjs("PlaylistRoulette", {
             path: "./packages/web/",
+            link: [apis.restApi],
         });
 
         return {};
