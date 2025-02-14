@@ -5,11 +5,11 @@
 
 declare module "sst" {
     export interface Resource {
-        ConnectionsTable: {
+        Connections: {
             name: string;
             type: "sst.aws.Dynamo";
         };
-        GameTable: {
+        Games: {
             name: string;
             type: "sst.aws.Dynamo";
         };

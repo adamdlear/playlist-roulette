@@ -20,6 +20,9 @@
         "sst": "^3"
     },
     "lint-staged": {
-        "**/*": "prettier --write --ignore-unknown"
+        "**/*": "prettier --write --ignore-unknown",
+        "!(*sst-env.d.ts)*.ts": [
+            "prettier --write"
+        ]
     }
 }

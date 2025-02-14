@@ -1,7 +1,7 @@
 "use server";
 
-import { Resource } from "sst";
 import { auth, signIn } from "@/auth";
+import { Resource } from "sst";
 
 interface CreateGameActionResponse {
     gameId: string;
