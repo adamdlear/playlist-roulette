@@ -24,7 +24,7 @@ export const handler = async (
     // TODO: if gameId exists, generate new one
 
     const putGameIdCommand = new PutItemCommand({
-        TableName: Resource.GameTable.name,
+        TableName: Resource.Games.name,
         Item: {
             gameId: { S: gameId },
             hostId: { S: hostId },

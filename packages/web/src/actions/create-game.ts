@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, signIn } from "@/auth";
+import { auth } from "@/auth";
 import { Resource } from "sst";
 
 interface CreateGameActionResponse {
@@ -8,11 +8,7 @@ interface CreateGameActionResponse {
 }
 
 export const createGameAction = async (): Promise<CreateGameActionResponse> => {
-    let session = await auth();
-    if (!session) {
-        await signIn("spotify");
-        session = await auth();
-    }
+    const session = await auth();
 
     if (!session) {
         throw new Error("could not find user");

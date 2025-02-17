@@ -1,20 +1,37 @@
-import { createGameAction } from "@/app/actions/create-game";
+"use client";
+
+import { createGameAction } from "@/actions/create-game";
 import { Button } from "@/components/ui/button";
-import { redirect } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export const CreatePartyButton = () => {
-    const handleSubmit = async () => {
-        "use server";
-        const response = await createGameAction();
-        if (!response) alert("Could not create game");
-        redirect(`/lobby/${response.gameId}`);
+    const { data: session } = useSession();
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleClick = async () => {
+        setIsLoading(true);
+
+        if (!session) {
+            await signIn("spotify", { callbackUrl: window.location.href });
+            return;
+        }
+
+        try {
+            const createGameResponse = await createGameAction();
+            router.push(`/lobby/${createGameResponse.gameId}`);
+        } catch (error) {
+            console.error(error);
+        }
+
+        setIsLoading(false);
     };
 
     return (
-        <form action={handleSubmit}>
-            <Button type="submit" className="w-full">
-                Create a Party
-            </Button>
-        </form>
+        <Button onClick={handleClick} disabled={isLoading} className="w-full">
+            {!session ? "Sign in to create a party" : "Create a Party"}
+        </Button>
     );
 };
