@@ -29,7 +29,8 @@ export const handler: Handler = async (
     }
 
     const command = new PutItemCommand({
-        TableName: Resource.ConnectionsTable.name,
+        TableName: Resource.Connections.name,
+
         Item: {
             connectionId: { S: connectionId },
             gameId: { S: gameId },
@@ -38,14 +39,13 @@ export const handler: Handler = async (
     });
 
     try {
-        const response = await dynamodb.send(command);
-        if (!response)
-            throw new Error(`Could not put connectionId ${connectionId}`);
+        await dynamodb.send(command);
         return {
             statusCode: 200,
             body: `Successfully put connectionId ${connectionId}`,
         };
     } catch (error) {
+        console.error("Could not put connection");
         console.error(error);
         return {
             statusCode: 500,

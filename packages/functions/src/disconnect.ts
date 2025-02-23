@@ -20,7 +20,7 @@ export const handler: Handler = async (
     }
 
     const command = new DeleteItemCommand({
-        TableName: Resource.ConnectionsTable.name,
+        TableName: Resource.Connections.name,
         Key: {
             connectionId: { S: connectionId },
         },
@@ -28,13 +28,12 @@ export const handler: Handler = async (
 
     try {
         const response = dynamodb.send(command);
-        if (!response)
-            throw new Error(`Could not delete connectionId ${connectionId}`);
         return {
             statusCode: 200,
             body: `Successfully deleted connectionId ${connectionId}`,
         };
     } catch (error) {
+        console.error("Could not delete connection");
         console.error(error);
         return {
             statusCode: 500,

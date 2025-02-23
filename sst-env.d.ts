@@ -17,11 +17,11 @@ declare module "sst" {
             type: "sst.aws.Nextjs";
             url: string;
         };
-        RestApi: {
+        Rest: {
             type: "sst.aws.ApiGatewayV2";
             url: string;
         };
-        WebsocketApi: {
+        Websocket: {
             managementEndpoint: string;
             type: "sst.aws.ApiGatewayWebSocket";
             url: string;

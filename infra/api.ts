@@ -1,6 +1,6 @@
 import { connectionsTable, gameTable } from "./tables";
 
-export const wsApi = new sst.aws.ApiGatewayWebSocket("WebsocketApi");
+export const wsApi = new sst.aws.ApiGatewayWebSocket("Websocket");
 wsApi.route("$connect", {
     link: [connectionsTable],
     handler: "./packages/functions/src/connect.handler",
@@ -10,7 +10,7 @@ wsApi.route("$disconnect", {
     handler: "./packages/functions/src/disconnect.handler",
 });
 
-export const restApi = new sst.aws.ApiGatewayV2("RestApi", {
+export const restApi = new sst.aws.ApiGatewayV2("Rest", {
     link: [gameTable],
 });
 restApi.route("PUT /game", "./packages/functions/src/game/put.handler");

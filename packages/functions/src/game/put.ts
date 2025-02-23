@@ -11,6 +11,8 @@ const dynamodb = new DynamoDBClient();
 export const handler = async (
     event: APIGatewayProxyEventV2,
 ): Promise<APIGatewayProxyResultV2> => {
+    console.log("connecting to websocket");
+
     const { hostId } = JSON.parse(event.body || "{}");
     if (!hostId) {
         return {
