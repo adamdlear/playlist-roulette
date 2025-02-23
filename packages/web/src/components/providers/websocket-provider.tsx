@@ -1,7 +1,5 @@
-"use client";
-
 import { webSocketManager } from "@/utils/WebSocketManager";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
 type WebSocketContextType = {
     connect: (url: string) => void;
@@ -10,7 +8,7 @@ type WebSocketContextType = {
     connected: boolean;
 };
 
-const WebSocketContext = createContext<WebSocketContextType | undefined>(
+export const WebSocketContext = createContext<WebSocketContextType | undefined>(
     undefined,
 );
 
@@ -42,12 +40,4 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
             {children}
         </WebSocketContext.Provider>
     );
-};
-
-export const useWebSocket = () => {
-    const context = useContext(WebSocketContext);
-    if (!context) {
-        throw new Error("useWebSocket must be used within a WebSocketProvider");
-    }
-    return context;
 };
