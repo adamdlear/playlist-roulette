@@ -1,13 +1,13 @@
 {
-    "name": "@playlist-roulette/functions",
-    "version": "0.0.0",
-    "type": "module",
-    "dependencies": {
-        "@aws-sdk/client-dynamodb": "^3.731.1",
-        "@playlist-roulette/core": "*",
-        "sst": "*"
-    },
-    "devDependencies": {
-        "@types/aws-lambda": "^8"
-    }
+	"name": "@playlist-roulette/functions",
+	"version": "0.0.0",
+	"type": "module",
+	"dependencies": {
+		"@aws-sdk/client-dynamodb": "^3.731.1",
+		"@playlist-roulette/core": "*",
+		"sst": "*"
+	},
+	"devDependencies": {
+		"@types/aws-lambda": "^8"
+	}
 }

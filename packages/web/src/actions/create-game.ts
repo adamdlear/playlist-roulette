@@ -4,33 +4,33 @@ import { auth } from "@/auth";
 import { Resource } from "sst";
 
 interface CreateGameActionResponse {
-    gameId: string;
+	gameId: string;
 }
 
 export const createGameAction = async (): Promise<CreateGameActionResponse> => {
-    const session = await auth();
+	const session = await auth();
 
-    if (!session) {
-        throw new Error("could not find user");
-    }
+	if (!session) {
+		throw new Error("could not find user");
+	}
 
-    const hostId = session.user.profileId;
+	const hostId = session.user.profileId;
 
-    const putGameResponse = await addGameToTable(hostId);
-    if (!putGameResponse) {
-        throw new Error("could put game in games table");
-    }
+	const putGameResponse = await addGameToTable(hostId);
+	if (!putGameResponse) {
+		throw new Error("could put game in games table");
+	}
 
-    return {
-        gameId: putGameResponse.gameId,
-    };
+	return {
+		gameId: putGameResponse.gameId,
+	};
 };
 
 const addGameToTable = async (hostId: string) => {
-    const response = await fetch(`${Resource.Rest.url}/game`, {
-        method: "PUT",
-        body: JSON.stringify({ hostId }),
-    });
+	const response = await fetch(`${Resource.Rest.url}/game`, {
+		method: "PUT",
+		body: JSON.stringify({ hostId }),
+	});
 
-    return await response.json();
+	return await response.json();
 };

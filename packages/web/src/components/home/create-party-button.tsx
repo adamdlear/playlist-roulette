@@ -8,39 +8,39 @@ import { useState } from "react";
 import { useWebSocket } from "../websocket/websocket-context";
 
 export const CreatePartyButton = () => {
-    const { data: session } = useSession();
-    const router = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
-    const { connect } = useWebSocket();
+	const { data: session } = useSession();
+	const router = useRouter();
+	const [isLoading, setIsLoading] = useState(false);
+	const { connect } = useWebSocket();
 
-    const handleClick = async () => {
-        setIsLoading(true);
+	const handleClick = async () => {
+		setIsLoading(true);
 
-        if (!session) {
-            await signIn("spotify", { callbackUrl: window.location.href });
-            return;
-        }
+		if (!session) {
+			await signIn("spotify", { callbackUrl: window.location.href });
+			return;
+		}
 
-        try {
-            const createGameResponse = await createGameAction();
-            router.push(`/lobby/${createGameResponse.gameId}`);
+		try {
+			const createGameResponse = await createGameAction();
+			router.push(`/lobby/${createGameResponse.gameId}`);
 
-            const wsResponse = await fetch("/api/ws");
-            const wsData = await wsResponse.json();
-            if (!wsData.url) {
-                throw new Error("Could not get websocket url");
-            }
-            connect(wsData.url);
-        } catch (error) {
-            console.error(error);
-        }
+			const wsResponse = await fetch("/api/ws");
+			const wsData = await wsResponse.json();
+			if (!wsData.url) {
+				throw new Error("Could not get websocket url");
+			}
+			connect(wsData.url);
+		} catch (error) {
+			console.error(error);
+		}
 
-        setIsLoading(false);
-    };
+		setIsLoading(false);
+	};
 
-    return (
-        <Button onClick={handleClick} disabled={isLoading} className="w-full">
-            {!session ? "Sign in to create a party" : "Create a Party"}
-        </Button>
-    );
+	return (
+		<Button onClick={handleClick} disabled={isLoading} className="w-full">
+			{!session ? "Sign in to create a party" : "Create a Party"}
+		</Button>
+	);
 };

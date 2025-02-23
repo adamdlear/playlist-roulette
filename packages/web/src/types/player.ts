@@ -1,5 +1,5 @@
-import { User } from "next-auth";
+import type { User } from "next-auth";
 
 export interface Player extends User {
-    isHost?: boolean;
+	isHost?: boolean;
 }
