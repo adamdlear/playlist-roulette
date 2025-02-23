@@ -4,31 +4,31 @@
 /* deno-fmt-ignore-file */
 
 declare module "sst" {
-	export interface Resource {
-		Connections: {
-			name: string;
-			type: "sst.aws.Dynamo";
-		};
-		Games: {
-			name: string;
-			type: "sst.aws.Dynamo";
-		};
-		PlaylistRoulette: {
-			type: "sst.aws.Nextjs";
-			url: string;
-		};
-		Rest: {
-			type: "sst.aws.ApiGatewayV2";
-			url: string;
-		};
-		Websocket: {
-			managementEndpoint: string;
-			type: "sst.aws.ApiGatewayWebSocket";
-			url: string;
-		};
-	}
+  export interface Resource {
+    "Connections": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
+    "Games": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
+    "PlaylistRoulette": {
+      "type": "sst.aws.Nextjs"
+      "url": string
+    }
+    "Rest": {
+      "type": "sst.aws.ApiGatewayV2"
+      "url": string
+    }
+    "Websocket": {
+      "managementEndpoint": string
+      "type": "sst.aws.ApiGatewayWebSocket"
+      "url": string
+    }
+  }
 }
 /// <reference path="sst-env.d.ts" />
 
-import "sst";
-export {};
+import "sst"
+export {}

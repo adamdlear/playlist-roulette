@@ -35,9 +35,7 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	return (
-		<WebSocketContext.Provider
-			value={{ connect, send, disconnect, connected }}
-		>
+		<WebSocketContext.Provider value={{ connect, send, disconnect, connected }}>
 			{children}
 		</WebSocketContext.Provider>
 	);

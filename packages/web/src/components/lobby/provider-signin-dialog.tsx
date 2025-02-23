@@ -21,8 +21,8 @@ export const ProviderSigninDialog = ({ ...props }) => {
 				<DialogHeader>
 					<DialogTitle>Signin</DialogTitle>
 					<DialogDescription>
-						Before joining the game, you need to signin to your
-						favorite music app
+						Before joining the game, you need to signin to your favorite music
+						app
 					</DialogDescription>
 				</DialogHeader>
 				<div className="flex justify-center">

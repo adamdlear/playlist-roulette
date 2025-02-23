@@ -13,10 +13,7 @@ export const SpotifySignin = ({ ...props }) => {
 			<Button
 				type="submit"
 				variant="secondary"
-				className={cn(
-					props.className,
-					"bg-green-500 text-zinc-900 font-bold",
-				)}
+				className={cn(props.className, "bg-green-500 text-zinc-900 font-bold")}
 			>
 				Signin with Spotify
 			</Button>

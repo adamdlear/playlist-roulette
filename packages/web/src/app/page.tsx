@@ -23,9 +23,7 @@ const HomePage = () => {
 					</CardHeader>
 					<CardContent className="flex flex-col gap-2">
 						<div className="flex flex-col gap-1">
-							<h2 className="text-lg font-bold text-center">
-								Join a Party
-							</h2>
+							<h2 className="text-lg font-bold text-center">Join a Party</h2>
 							<GameCodeForm />
 						</div>
 						<CardDescription className="text-md text-center">

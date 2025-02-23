@@ -32,15 +32,10 @@ export const LobbyCard = ({ gameCode, players }: LobbyCardProps) => {
 				)}
 				<div className="space-y-8">
 					{players.map((player, index) => (
-						<div
-							key={index}
-							className="flex items-center justify-between"
-						>
+						<div key={index} className="flex items-center justify-between">
 							<div className="flex items-center space-x-4">
 								<Avatar>
-									<AvatarImage
-										src={player.image ?? undefined}
-									/>
+									<AvatarImage src={player.image ?? undefined} />
 								</Avatar>
 								<h3 className="text-xl">{player.name}</h3>
 							</div>

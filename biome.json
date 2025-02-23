@@ -7,12 +7,11 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": [".sst/*", "packages/web/.next/*"]
+		"ignore": [".sst/*", "*/sst-env.d.ts", "packages/web/.next/*"]
 	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab",
-		"indentWidth": 4
+		"indentStyle": "tab"
 	},
 	"organizeImports": {
 		"enabled": true

@@ -28,7 +28,7 @@ export const createGameAction = async (): Promise<CreateGameActionResponse> => {
 
 const addGameToTable = async (hostId: string) => {
 	const response = await fetch(`${Resource.Rest.url}/game`, {
-		method: "PUT",
+		method: "POST",
 		body: JSON.stringify({ hostId }),
 	});
 
