@@ -3,7 +3,7 @@ import type React from "react";
 import { createContext, useState } from "react";
 
 type WebSocketContextType = {
-	connect: (url: string) => void;
+	connect: () => void;
 	send: (message: string) => void;
 	disconnect: () => void;
 	connected: boolean;
@@ -18,10 +18,13 @@ export const WebSocketProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const [connected, setConnected] = useState(false);
 
-	const connect = (url: string) => {
-		webSocketManager.connect(url, (message) => {
-			console.log("Received message:", message);
-		});
+	const connect = () => {
+		webSocketManager.connect(
+			process.env.NEXT_PULBIC_WEBSOCKET_URL as string,
+			(message) => {
+				console.log("Received message:", message);
+			},
+		);
 		setConnected(true);
 	};
 

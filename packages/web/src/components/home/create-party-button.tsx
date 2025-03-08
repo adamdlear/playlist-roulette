@@ -2,10 +2,10 @@
 
 import { createGameAction } from "@/actions/create-game";
 import { Button } from "@/components/ui/button";
+import { useWebSocket } from "@/hooks/use-websocket";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useWebSocket } from "../websocket/websocket-context";
 
 export const CreatePartyButton = () => {
 	const { data: session } = useSession();
@@ -24,13 +24,7 @@ export const CreatePartyButton = () => {
 		try {
 			const createGameResponse = await createGameAction();
 			router.push(`/lobby/${createGameResponse.gameId}`);
-
-			const wsResponse = await fetch("/api/ws");
-			const wsData = await wsResponse.json();
-			if (!wsData.url) {
-				throw new Error("Could not get websocket url");
-			}
-			connect(wsData.url);
+			connect();
 		} catch (error) {
 			console.error(error);
 		}
