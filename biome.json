@@ -10,8 +10,7 @@
 		"ignore": [".sst/*", "*/sst-env.d.ts", "packages/web/.next/*"]
 	},
 	"formatter": {
-		"enabled": true,
-		"indentStyle": "tab"
+		"enabled": true
 	},
 	"organizeImports": {
 		"enabled": true

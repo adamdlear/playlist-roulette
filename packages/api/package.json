@@ -1,6 +1,7 @@
 {
 	"name": "api",
-	"type": "module",
+	"version": "0.1.0",
+	"private": true,
 	"scripts": {
 		"build": "esbuild --bundle --outfile=./dist/index.js --platform=node --target=node20 ./src/index.ts",
 		"zip": "zip -j lambda.zip dist/index.js",
