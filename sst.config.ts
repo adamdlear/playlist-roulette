@@ -11,14 +11,15 @@ export default $config({
 	},
 	async run() {
 		const tables = await import("./infra/tables");
-		const apis = await import("./infra/api");
+
+		const api = new sst.aws.Function("Hono", {
+			url: true,
+			handler: "packages/api/src/index.handler",
+		});
 
 		new sst.aws.Nextjs("PlaylistRoulette", {
 			path: "./packages/web/",
-			link: [apis.restApi],
-			environment: {
-				NEXT_PUBLIC_WEBSOCKET_URL: apis.wsApi.url,
-			},
+			link: [api],
 		});
 
 		return {};
