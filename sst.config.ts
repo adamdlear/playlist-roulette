@@ -15,6 +15,7 @@ export default $config({
 		const api = new sst.aws.Function("Hono", {
 			url: true,
 			handler: "packages/api/src/index.handler",
+			link: [tables.gameTable],
 		});
 
 		new sst.aws.Nextjs("PlaylistRoulette", {

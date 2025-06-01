@@ -3,11 +3,7 @@
 import { auth } from "@/auth";
 import { Resource } from "sst";
 
-interface CreateGameActionResponse {
-	gameId: string;
-}
-
-export const createGameAction = async (): Promise<CreateGameActionResponse> => {
+export const createGameAction = async () => {
 	const session = await auth();
 
 	if (!session) {
@@ -16,21 +12,16 @@ export const createGameAction = async (): Promise<CreateGameActionResponse> => {
 
 	const hostId = session.user.profileId;
 
-	const putGameResponse = await addGameToTable(hostId);
-	if (!putGameResponse) {
-		throw new Error("could put game in games table");
-	}
-
-	return {
-		gameId: putGameResponse.gameId,
-	};
-};
-
-const addGameToTable = async (hostId: string) => {
-	const response = await fetch(`${Resource.Rest.url}/game`, {
+	const response = await fetch(`${Resource.Hono.url}game`, {
 		method: "POST",
 		body: JSON.stringify({ hostId }),
 	});
 
-	return await response.json();
+	if (!response.ok) throw new Error("Failed to create the game");
+
+	const { gameId } = await response.json();
+
+	return {
+		gameId: gameId,
+	};
 };

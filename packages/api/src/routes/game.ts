@@ -1,6 +1,7 @@
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { Context, Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
+import { Resource } from "sst/resource";
 
 export const game = new Hono();
 
@@ -13,7 +14,7 @@ game.post("/", async (c: Context) => {
 	const gameId = generateGameId();
 
 	const putGameIdCommand = new PutItemCommand({
-		TableName: "Games",
+		TableName: Resource.Games.name,
 		Item: {
 			gameId: { S: gameId },
 			hostId: { S: hostId },
@@ -22,7 +23,7 @@ game.post("/", async (c: Context) => {
 	});
 
 	try {
-		dynamodb.send(putGameIdCommand);
+		await dynamodb.send(putGameIdCommand);
 		return c.json({ gameId });
 	} catch (error) {
 		console.error(error);

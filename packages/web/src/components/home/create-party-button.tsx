@@ -2,7 +2,7 @@
 
 import { createGameAction } from "@/actions/create-game";
 import { Button } from "@/components/ui/button";
-import { useWebSocket } from "@/hooks/use-websocket";
+// import { useWebSocket } from "@/hooks/use-websocket";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,7 +11,7 @@ export const CreatePartyButton = () => {
 	const { data: session } = useSession();
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
-	const { connect } = useWebSocket();
+	// const { connect } = useWebSocket();
 
 	const handleClick = async () => {
 		setIsLoading(true);
@@ -24,7 +24,7 @@ export const CreatePartyButton = () => {
 		try {
 			const createGameResponse = await createGameAction();
 			router.push(`/lobby/${createGameResponse.gameId}`);
-			connect();
+			// connect();
 		} catch (error) {
 			console.error(error);
 		}

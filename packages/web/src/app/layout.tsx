@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import { SpotifySignout } from "@/components/spotify/spotify-signout";
-import { WebSocketProvider } from "@/components/websocket/websocket-context";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -34,14 +33,12 @@ export default async function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<SessionProvider>
-					<WebSocketProvider>
-						{children}
-						{session && (
-							<div className="flex justify-center">
-								<SpotifySignout />
-							</div>
-						)}
-					</WebSocketProvider>
+					{children}
+					{session && (
+						<div className="flex justify-center">
+							<SpotifySignout />
+						</div>
+					)}
 				</SessionProvider>
 			</body>
 		</html>
