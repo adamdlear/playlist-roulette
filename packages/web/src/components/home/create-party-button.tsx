@@ -1,6 +1,6 @@
 "use client";
 
-import { createGameAction } from "@/actions/create-game";
+import { createGameAction } from "@/actions/game/create-game";
 import { Button } from "@/components/ui/button";
 // import { useWebSocket } from "@/hooks/use-websocket";
 import { signIn, useSession } from "next-auth/react";

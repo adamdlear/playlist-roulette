@@ -36,17 +36,15 @@ game.post("/", async (c: Context) => {
 	}
 });
 
-game.post("/start", async (c: Context) => {
-	const body = await c.req.json();
-
-	const { gameId } = body;
+game.post("/start/:gameId", async (c: Context) => {
+	const gameId = c.req.param("gameId");
 
 	const updateGameCommand = new UpdateItemCommand({
 		TableName: Resource.Games.name,
 		Key: {
 			gameId: { S: gameId },
 		},
-		UpdateExpression: "SET Status = :status, StartTime = :startTime",
+		UpdateExpression: "SET GameStatus = :status, StartTime = :startTime",
 		ExpressionAttributeValues: {
 			":status": { S: "IN_PROGRESS" },
 			":startTime": { N: Date.now().toString() },
@@ -54,11 +52,12 @@ game.post("/start", async (c: Context) => {
 	});
 
 	try {
-		dynamodb.send(updateGameCommand);
+		await dynamodb.send(updateGameCommand);
+		return c.json({ message: "Game started" });
 	} catch (error) {
 		console.error(error);
 		throw new HTTPException(400, {
-			message: `Error updating the job: ${error}`,
+			message: `Error updating the game: ${error}`,
 		});
 	}
 });

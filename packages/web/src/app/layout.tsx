@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { SpotifySignout } from "@/components/spotify/spotify-signout";
+import { SpotifySignout } from "@/components/auth/spotify-signout";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { Geist, Geist_Mono } from "next/font/google";

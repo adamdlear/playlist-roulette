@@ -3,28 +3,33 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
+	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
 import type { Player } from "@/types/player";
-import { UpdateGameButton } from "./update-game-button";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import { StartGameButton } from "./start-game-button";
 
 interface LobbyCardProps {
 	gameCode: string;
 	players: Player[];
 }
 
-export const LobbyCard = ({ gameCode, players }: LobbyCardProps) => {
+export const LobbyCard = async ({ gameCode, players }: LobbyCardProps) => {
+	const session = await auth();
+	if (!session) {
+		redirect("/");
+	}
+
 	return (
 		<Card className="w-[600px]">
 			<CardHeader className="text-center">
 				<CardTitle className="text-4xl">{gameCode}</CardTitle>
 				<CardDescription>Waiting for players...</CardDescription>
-				<div className="pt-4">
-					<UpdateGameButton />
-				</div>
 			</CardHeader>
-			<CardContent className="p-6">
+			<CardContent>
 				{players.length === 0 && (
 					<h2 className="text-zinc-600 text-center">
 						No players in this party yet
@@ -46,6 +51,11 @@ export const LobbyCard = ({ gameCode, players }: LobbyCardProps) => {
 					))}
 				</div>
 			</CardContent>
+			<CardFooter>
+				<div className="w-full flex justify-center">
+					<StartGameButton gameCode={gameCode} />
+				</div>
+			</CardFooter>
 		</Card>
 	);
 };
