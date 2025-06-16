@@ -7,11 +7,11 @@ import { Context, Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { Resource } from "sst/resource";
 
-export const game = new Hono();
+export const app = new Hono();
 
 const dynamodb = new DynamoDBClient();
 
-game.post("/", async (c: Context) => {
+app.post("/", async (c: Context) => {
 	const body = await c.req.json();
 
 	const { hostId } = body;
@@ -36,7 +36,7 @@ game.post("/", async (c: Context) => {
 	}
 });
 
-game.post("/start/:gameId", async (c: Context) => {
+app.post("/start/:gameId", async (c: Context) => {
 	const gameId = c.req.param("gameId");
 
 	const updateGameCommand = new UpdateItemCommand({
@@ -67,3 +67,5 @@ export const generateGameId = () => {
 		.toString()
 		.padStart(4, "0");
 };
+
+export default app;

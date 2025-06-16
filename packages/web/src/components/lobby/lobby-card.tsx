@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
 	Card,
@@ -8,7 +9,6 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import type { Player } from "@/types/player";
-import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { StartGameButton } from "./start-game-button";
 
