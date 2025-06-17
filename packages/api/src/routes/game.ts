@@ -7,7 +7,7 @@ import { Context, Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 import { Resource } from "sst/resource";
 
-export const app = new Hono();
+const app = new Hono();
 
 const dynamodb = new DynamoDBClient();
 
@@ -31,7 +31,7 @@ app.post("/", async (c: Context) => {
 	} catch (error) {
 		console.error(error);
 		throw new HTTPException(400, {
-			message: `Error creating the job: ${error}`,
+			message: `Error creating the game: ${error}`,
 		});
 	}
 });
