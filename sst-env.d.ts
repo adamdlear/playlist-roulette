@@ -22,6 +22,11 @@ declare module "sst" {
       "type": "sst.aws.Nextjs"
       "url": string
     }
+    "WebsocketApi": {
+      "managementEndpoint": string
+      "type": "sst.aws.ApiGatewayWebSocket"
+      "url": string
+    }
   }
 }
 /// <reference path="sst-env.d.ts" />

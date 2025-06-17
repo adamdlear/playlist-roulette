@@ -10,13 +10,7 @@ export default $config({
 		};
 	},
 	async run() {
-		const tables = await import("./infra/tables");
-
-		const api = new sst.aws.Function("Hono", {
-			url: true,
-			handler: "packages/api/src/index.handler",
-			link: [tables.gameTable],
-		});
+		const { api } = await import("./infra/api");
 
 		new sst.aws.Nextjs("PlaylistRoulette", {
 			path: "./packages/web/",

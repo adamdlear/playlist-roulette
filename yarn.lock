@@ -2456,10 +2456,10 @@
   resolved "https://registry.npmjs.org/@tsconfig/node22/-/node22-22.0.0.tgz"
   integrity sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg==
 
-"@types/aws-lambda@^8":
-  version "8.10.147"
-  resolved "https://registry.npmjs.org/@types/aws-lambda/-/aws-lambda-8.10.147.tgz"
-  integrity sha512-nD0Z9fNIZcxYX5Mai2CTmFD7wX7UldCkW2ezCF8D1T5hdiLsnTWDGRpfRYntU6VjTdLQjOvyszru7I1c1oCQew==
+"@types/aws-lambda@^8.10.150":
+  version "8.10.150"
+  resolved "https://registry.yarnpkg.com/@types/aws-lambda/-/aws-lambda-8.10.150.tgz#4998b238750ec389a326a7cdb625808834036bd3"
+  integrity sha512-AX+AbjH/rH5ezX1fbK8onC/a+HyQHo7QGmvoxAE42n22OsciAxvZoZNEr22tbXs8WfP1nIsBjKDpgPm3HjOZbA==
 
 "@types/cookie@0.6.0":
   version "0.6.0"
@@ -5368,7 +5368,7 @@ sst-linux-x86@3.5.13:
   resolved "https://registry.yarnpkg.com/sst-linux-x86/-/sst-linux-x86-3.5.13.tgz#d1cedc15ad659d5e57b290631caee7dac72e8aba"
   integrity sha512-yTG0aZLUTq7B8SbOZe8ZEWX8hWJFfzB115UpnABBmDVinzx1Cw0IBKBul8UvqaWpkMGyiPFw3Jmdy0jrnjexfw==
 
-sst@*, sst@^3:
+sst@^3:
   version "3.5.13"
   resolved "https://registry.npmjs.org/sst/-/sst-3.5.13.tgz"
   integrity sha512-/8MdMw3FStjGNsHsrSwCbKuxJ3M+yAOKlLLBtFaNF2hD0Idn1fZxMUbOug8uiNPsXI0hjhxyt/ahtwtYeMgzsg==
