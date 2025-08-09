@@ -2,8 +2,14 @@
 	"name": "functions",
 	"version": "0.1.0",
 	"private": true,
+	"scripts": {
+		"test": "vitest run"
+	},
 	"dependencies": {
+		"@aws-sdk/client-dynamodb": "^3.859.0",
 		"@types/aws-lambda": "^8.10.150"
 	},
-	"devDependencies": {}
+	"devDependencies": {
+		"vitest": "^3.2.4"
+	}
 }
