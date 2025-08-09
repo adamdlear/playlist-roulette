@@ -13,8 +13,13 @@ export const handler = async (
 	switch (routeKey) {
 		case "$connect":
 			return handleConnect(event);
+
 		case "$disconnect":
 			return handleDisconnect(event);
+
+		case "$default":
+			return { statusCode: 200, body: "Message received" };
+
 		default:
 			return { statusCode: 404, body: `Unknown route: ${routeKey}` };
 	}
