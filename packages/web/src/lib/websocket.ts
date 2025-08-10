@@ -2,7 +2,7 @@ import { Resource } from "sst";
 
 export const connectWebSocket = async () => {
 	try {
-		const socket = new WebSocket(Resource.Websocket.url);
+		const socket = new WebSocket(Resource.WebsocketApi.url);
 
 		socket.onopen = () => {
 			console.log("WebSocket connection established");
