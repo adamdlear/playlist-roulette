@@ -10,11 +10,11 @@ export default $config({
 		};
 	},
 	async run() {
-		const { api } = await import("./infra/api");
+		const { api, ws } = await import("./infra/api");
 
 		new sst.aws.Nextjs("PlaylistRoulette", {
 			path: "./packages/web/",
-			link: [api],
+			link: [api, ws],
 		});
 
 		return {};
