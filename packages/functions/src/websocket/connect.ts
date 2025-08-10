@@ -13,7 +13,7 @@ export const handleConnect = async (
 	const command = new PutItemCommand({
 		TableName: "ConnectionsTable",
 		Item: {
-			connectionId: { S: event.requestContext.connectionId },
+			PK: { S: event.requestContext.connectionId },
 		},
 	});
 

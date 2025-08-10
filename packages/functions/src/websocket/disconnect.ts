@@ -13,7 +13,7 @@ export const handleDisconnect = async (
 	const command = new DeleteItemCommand({
 		TableName: "ConnectionsTable",
 		Key: {
-			connectionId: { S: event.requestContext.connectionId },
+			PK: { S: event.requestContext.connectionId },
 		},
 	});
 

@@ -17,16 +17,16 @@ app.post("/", async (c: Context) => {
 	const { hostId } = body;
 	const gameId = generateGameId();
 
-	const putGameIdCommand = new PutItemCommand({
-		TableName: Resource.Games.name,
-		Item: {
-			gameId: { S: gameId },
-			hostId: { S: hostId },
-		},
-	});
+	// const putGameIdCommand = new PutItemCommand({
+	// 	TableName: Resource.Games.name,
+	// 	Item: {
+	// 		gameId: { S: gameId },
+	// 		hostId: { S: hostId },
+	// 	},
+	// });
 
 	try {
-		await dynamodb.send(putGameIdCommand);
+		// await dynamodb.send(putGameIdCommand);
 		return c.json({ gameId });
 	} catch (error) {
 		console.error(error);
@@ -39,20 +39,20 @@ app.post("/", async (c: Context) => {
 app.post("/start/:gameId", async (c: Context) => {
 	const gameId = c.req.param("gameId");
 
-	const updateGameCommand = new UpdateItemCommand({
-		TableName: Resource.Games.name,
-		Key: {
-			gameId: { S: gameId },
-		},
-		UpdateExpression: "SET GameStatus = :status, StartTime = :startTime",
-		ExpressionAttributeValues: {
-			":status": { S: "IN_PROGRESS" },
-			":startTime": { N: Date.now().toString() },
-		},
-	});
+	// const updateGameCommand = new UpdateItemCommand({
+	// 	TableName: Resource.Games.name,
+	// 	Key: {
+	// 		gameId: { S: gameId },
+	// 	},
+	// 	UpdateExpression: "SET GameStatus = :status, StartTime = :startTime",
+	// 	ExpressionAttributeValues: {
+	// 		":status": { S: "IN_PROGRESS" },
+	// 		":startTime": { N: Date.now().toString() },
+	// 	},
+	// });
 
 	try {
-		await dynamodb.send(updateGameCommand);
+		// await dynamodb.send(updateGameCommand);
 		return c.json({ message: "Game started" });
 	} catch (error) {
 		console.error(error);

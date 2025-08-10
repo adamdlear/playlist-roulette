@@ -5,14 +5,6 @@
 
 declare module "sst" {
   export interface Resource {
-    "Connections": {
-      "name": string
-      "type": "sst.aws.Dynamo"
-    }
-    "Games": {
-      "name": string
-      "type": "sst.aws.Dynamo"
-    }
     "Hono": {
       "name": string
       "type": "sst.aws.Function"
