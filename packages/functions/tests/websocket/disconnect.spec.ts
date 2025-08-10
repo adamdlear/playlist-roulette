@@ -20,8 +20,11 @@ describe("handleDisconnect", () => {
 		const result = await handleDisconnect(event);
 
 		// Assert
-		expect(mockSend).toHaveBeenCalledTimes(1);
 		expect(result).toEqual({ statusCode: 200 });
+		expect(mockSend).toHaveBeenCalledExactlyOnceWith({
+			TableName: "ConnectionsTable",
+			Key: { PK: { S: "CONNECTION#abc123" } },
+		});
 	});
 
 	it("returns 500 when DynamoDB fails", async () => {

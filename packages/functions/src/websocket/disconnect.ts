@@ -1,9 +1,10 @@
 import { DeleteItemCommand } from "@aws-sdk/client-dynamodb";
-import { getDynamoClient } from "../dynamo/client";
 import {
-	APIGatewayProxyWebsocketEventV2,
 	APIGatewayProxyStructuredResultV2,
+	APIGatewayProxyWebsocketEventV2,
 } from "aws-lambda";
+import { Resource } from "sst/resource";
+import { getDynamoClient } from "../dynamo/client";
 
 export const handleDisconnect = async (
 	event: APIGatewayProxyWebsocketEventV2,
@@ -11,9 +12,9 @@ export const handleDisconnect = async (
 	const client = getDynamoClient();
 
 	const command = new DeleteItemCommand({
-		TableName: "ConnectionsTable",
+		TableName: Resource.Connections.name,
 		Key: {
-			PK: { S: event.requestContext.connectionId },
+			PK: { S: `CONNECTION#${event.requestContext.connectionId}` },
 		},
 	});
 

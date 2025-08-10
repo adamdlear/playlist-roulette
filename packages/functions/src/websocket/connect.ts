@@ -3,6 +3,7 @@ import {
 	APIGatewayProxyStructuredResultV2,
 	APIGatewayProxyWebsocketEventV2,
 } from "aws-lambda";
+import { Resource } from "sst/resource";
 import { getDynamoClient } from "../dynamo/client";
 
 export const handleConnect = async (
@@ -11,9 +12,9 @@ export const handleConnect = async (
 	const client = getDynamoClient();
 
 	const command = new PutItemCommand({
-		TableName: "ConnectionsTable",
+		TableName: Resource.Connections.name,
 		Item: {
-			PK: { S: event.requestContext.connectionId },
+			PK: { S: `CONNECTION#${event.requestContext.connectionId}` },
 		},
 	});
 
