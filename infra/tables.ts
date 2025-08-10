@@ -1,13 +1,14 @@
-// export const connectionsTable = new sst.aws.Dynamo("Connections", {
-// 	fields: {
-// 		connectionId: "string",
-// 	},
-// 	primaryIndex: { hashKey: "PK" },
-// });
-//
-// export const gameTable = new sst.aws.Dynamo("Games", {
-// 	fields: {
-// 		gameId: "string",
-// 	},
-// 	primaryIndex: { hashKey: "PK" },
-// });
+export const connectionsTable = new sst.aws.Dynamo("Connections", {
+	fields: {
+		PK: "string",
+	},
+	primaryIndex: { hashKey: "PK" },
+	ttl: "ttl",
+});
+
+export const gameTable = new sst.aws.Dynamo("Games", {
+	fields: {
+		PK: "string",
+	},
+	primaryIndex: { hashKey: "PK" },
+});
