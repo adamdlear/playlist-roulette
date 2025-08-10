@@ -1,17 +1,10 @@
-import {
-	Card,
-	CardFooter,
-	CardTitle,
-	CardDescription,
-	CardContent,
-	CardHeader,
-} from "../ui/card";
+import { Card, CardTitle, CardDescription, CardHeader } from "../ui/card";
 
-interface GameCardProps {
-	gameCode: string;
-}
+// interface GameCardProps {
+// 	gameCode: string;
+// }
 
-export const GameCard = ({ gameCode }: GameCardProps) => {
+export const GameCard = () => {
 	return (
 		<Card className="w-[600px]">
 			<CardHeader className="text-center">
