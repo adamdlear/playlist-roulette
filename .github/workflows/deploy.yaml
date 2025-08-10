@@ -5,9 +5,12 @@ on:
       - main
 
 jobs:
-  deploy-site:
+  deploy-resources:
     runs-on: ubuntu-latest
-    name: Deploy
+    name: Deploy Resources
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
