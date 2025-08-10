@@ -1,8 +1,9 @@
 import { describe, expect, it } from "vitest";
-import app from "../src";
 import { mockDynamoDB } from "./mocks/dynamo";
 
 mockDynamoDB();
+
+import app from "../src";
 
 describe("/game route", () => {
 	describe("POST /game", () => {

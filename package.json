@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "sst dev",
 		"prepare": "husky",
-		"format": "biome format --write"
+		"format": "biome format --write",
+		"test": "yarn workspace api test ; yarn workspace functions test"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
