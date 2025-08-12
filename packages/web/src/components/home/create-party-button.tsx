@@ -1,6 +1,6 @@
 "use client";
 
-import { createGameAction } from "@/actions/game/create-game";
+import { createGameAction } from "@/actions/game/create";
 import { Button } from "@/components/ui/button";
 import { useGame } from "@/hooks/use-game";
 import { signIn, useSession } from "next-auth/react";
@@ -11,7 +11,7 @@ export const CreatePartyButton = () => {
 	const { data: session } = useSession();
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
-	const { connect } = useGame();
+	const { joinGame } = useGame();
 
 	const handleClick = async () => {
 		setIsLoading(true);
@@ -22,13 +22,9 @@ export const CreatePartyButton = () => {
 		}
 
 		try {
-			const createGameResponse = await createGameAction();
-
-			const getWsUrlResponse = await fetch("/api/ws");
-			const { url } = await getWsUrlResponse.json();
-			connect(url);
-
-			router.push(`/lobby/${createGameResponse.gameId}`);
+			const { gameId } = await createGameAction();
+			joinGame(gameId, { ...session.user, isHost: true });
+			router.push(`/lobby/${gameId}`);
 		} catch (error) {
 			console.error(error);
 		}

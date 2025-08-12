@@ -1,6 +1,6 @@
 "use client";
 
-import { startGameAction } from "@/actions/game/start-game";
+import { startGameAction } from "@/actions/game/start";
 import { useState } from "react";
 import { Button } from "../ui/button";
 
