@@ -1,6 +1,6 @@
 import { vi } from "vitest";
 
-export const mockSend = vi.fn();
+export const mockDynamoSend = vi.fn();
 
 export function mockDynamoDB() {
 	vi.mock("sst/resource", () => ({
@@ -12,7 +12,7 @@ export function mockDynamoDB() {
 	vi.mock("@aws-sdk/client-dynamodb", () => {
 		return {
 			DynamoDBClient: vi.fn().mockImplementation(() => ({
-				send: mockSend,
+				send: mockDynamoSend,
 			})),
 			PutItemCommand: vi.fn((args) => ({ ...args })),
 			DeleteItemCommand: vi.fn((args) => ({ ...args })),

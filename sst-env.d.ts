@@ -5,6 +5,10 @@
 
 declare module "sst" {
   export interface Resource {
+    "Auth": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
     "Connections": {
       "name": string
       "type": "sst.aws.Dynamo"
@@ -26,6 +30,10 @@ declare module "sst" {
       "managementEndpoint": string
       "type": "sst.aws.ApiGatewayWebSocket"
       "url": string
+    }
+    "WebsocketFunction": {
+      "name": string
+      "type": "sst.aws.Function"
     }
   }
 }

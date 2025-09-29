@@ -23,7 +23,8 @@ export const CreatePartyButton = () => {
 
 		try {
 			const { gameId } = await createGameAction();
-			joinGame(gameId, { ...session.user, isHost: true });
+			const isHost = true;
+			joinGame(gameId, isHost);
 			router.push(`/lobby/${gameId}`);
 		} catch (error) {
 			console.error(error);
@@ -33,7 +34,12 @@ export const CreatePartyButton = () => {
 	};
 
 	return (
-		<Button onClick={handleClick} disabled={isLoading} className="w-full">
+		<Button
+			type="button"
+			onClick={handleClick}
+			disabled={isLoading}
+			className="w-full"
+		>
 			{!session ? "Sign in to create a party" : "Create a Party"}
 		</Button>
 	);

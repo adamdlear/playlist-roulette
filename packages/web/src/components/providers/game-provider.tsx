@@ -1,11 +1,9 @@
 "use client";
 
-import { addPlayerToGame } from "@/actions/game/players";
-import { Player } from "@/types/player";
 import { createContext, useEffect, useRef } from "react";
 
 interface GameContextType {
-	joinGame: (gameId: string, player: Player) => Promise<void>;
+	joinGame: (gameId: string, isHost: boolean) => Promise<void>;
 }
 
 export const GameContext = createContext<GameContextType | undefined>(
@@ -15,29 +13,49 @@ export const GameContext = createContext<GameContextType | undefined>(
 export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 	const wsRef = useRef<WebSocket | null>(null);
 
-	const joinGame = async (gameId: string, player: Player): Promise<void> => {
-		connect();
-		addPlayerToGame(gameId, player);
+	const joinGame = async (gameId: string, isHost: boolean): Promise<void> => {
+		await connect(gameId, isHost);
 	};
 
-	const connect = async (): Promise<void> => {
+	const connect = async (gameId: string, isHost: boolean): Promise<void> => {
 		const getWsUrlResponse = await fetch("/api/ws");
 		const { url } = await getWsUrlResponse.json();
 
+		const res = await fetch("/api/token");
+		if (!res.ok) throw new Error("Failed to fetch JWT");
+		const { token } = await res.json();
+		const encodedToken = encodeURIComponent(token);
+
 		return new Promise((resolve, reject) => {
 			try {
-				wsRef.current = new WebSocket(url);
+				wsRef.current = new WebSocket(
+					`${url}?token=${encodedToken}&gameId=${gameId}&isHost=${isHost}`,
+				);
 
-				wsRef.current.onopen = () => {
-					console.log("Connected to websocket");
+				console.log("successfully connected to websocket");
+
+				wsRef.current.onopen = async () => {
+					console.log("calling ws.open");
+					resolve();
+				};
+
+				wsRef.current.onmessage = (event: MessageEvent<string>) => {
+					console.log(
+						"calling ws.message with message ",
+						JSON.parse(event.data),
+					);
 					resolve();
 				};
 
 				wsRef.current.onerror = (error) => {
-					console.error("Websocket error: ", error);
+					console.log("calling ws.onerror with error ", error);
 					reject(error);
+					if (wsRef.current) {
+						wsRef.current.close();
+					}
 				};
 			} catch (error) {
+				console.error(error);
 				reject(error);
 			}
 		});

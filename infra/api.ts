@@ -1,14 +1,16 @@
-import { connectionsTable, gameTable } from "./tables";
+import { connectionsTable, gameTable, authTable } from "./tables";
+
+const wsFn = new sst.aws.Function("WebsocketFunction", {
+	handler: "packages/functions/src/websocket/handler.handler",
+	link: [connectionsTable, authTable],
+	environment: {
+		AUTH_SECRET: process.env.AUTH_SECRET,
+	},
+});
 
 export const ws = new sst.aws.ApiGatewayWebSocket("WebsocketApi");
-ws.route("$connect", {
-	handler: "packages/functions/src/websocket/handler.handler",
-	link: [connectionsTable],
-});
-ws.route("$disconnect", {
-	handler: "packages/functions/src/websocket/handler.handler",
-	link: [connectionsTable],
-});
+ws.route("$connect", wsFn.arn);
+ws.route("$disconnect", wsFn.arn);
 
 export const api = new sst.aws.Function("Hono", {
 	url: true,
