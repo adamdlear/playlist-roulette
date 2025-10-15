@@ -17,6 +17,8 @@
 	"dependencies": {
 		"@aws-sdk/client-dynamodb": "^3.821.0",
 		"@aws-sdk/util-dynamodb": "^3.828.0",
-		"hono": "^4.7.10"
+		"@openauthjs/openauth": "^0.4.3",
+		"hono": "^4.7.10",
+		"valibot": "^1.1.0"
 	}
 }
