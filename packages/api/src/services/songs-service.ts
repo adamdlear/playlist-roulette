@@ -1,4 +1,4 @@
-import { QueryCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, QueryCommand } from "@aws-sdk/client-dynamodb";
 import { unmarshall } from "@aws-sdk/util-dynamodb";
 
 export const getPlayers = async (gameId: string) => {

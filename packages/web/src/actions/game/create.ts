@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { Resource } from "sst";
+import { Resource } from "sst/resource";
 
 export const createGameAction = async () => {
 	const session = await auth();
@@ -12,7 +12,7 @@ export const createGameAction = async () => {
 
 	const hostId = session.user.profileId;
 
-	const response = await fetch(`${Resource.Hono.url}game`, {
+	const response = await fetch(`${Resource.HttpApi.url}/game`, {
 		method: "POST",
 		body: JSON.stringify({ hostId }),
 	});

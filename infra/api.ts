@@ -1,19 +1,19 @@
 import { connectionsTable, gameTable, authTable } from "./tables";
 
-const wsFn = new sst.aws.Function("WebsocketFunction", {
-	handler: "packages/functions/src/websocket/handler.handler",
-	link: [connectionsTable, authTable],
+export const httpApi = new sst.aws.ApiGatewayV2("HttpApi");
+export const wsApi = new sst.aws.ApiGatewayWebSocket("WebsocketApi");
+
+export const honoFn = new sst.aws.Function("HonoHandler", {
+	handler: "packages/api/src/index.handler",
+	link: [gameTable, connectionsTable, authTable, httpApi],
 	environment: {
-		AUTH_SECRET: process.env.AUTH_SECRET,
+		SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
+		SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_ID,
 	},
 });
 
-export const api = new sst.aws.Function("Hono", {
-	url: true,
-	handler: "packages/api/src/index.handler",
-	link: [gameTable, ws],
-});
+httpApi.route("ANY /{proxy+}", honoFn.arn);
 
-export const ws = new sst.aws.ApiGatewayWebSocket("WebsocketApi");
-ws.route("$connect", wsFn.arn);
-ws.route("$disconnect", wsFn.arn);
+wsApi.route("$connect", honoFn.arn);
+wsApi.route("$disconnect", honoFn.arn);
+wsApi.route("$default", honoFn.arn);

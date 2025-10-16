@@ -5,7 +5,7 @@
 
 declare module "sst" {
   export interface Resource {
-    "Auth": {
+    "AuthStorage": {
       "name": string
       "type": "sst.aws.Dynamo"
     }
@@ -17,9 +17,12 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Dynamo"
     }
-    "Hono": {
+    "HonoHandler": {
       "name": string
       "type": "sst.aws.Function"
+    }
+    "HttpApi": {
+      "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
     "PlaylistRoulette": {
@@ -30,10 +33,6 @@ declare module "sst" {
       "managementEndpoint": string
       "type": "sst.aws.ApiGatewayWebSocket"
       "url": string
-    }
-    "WebsocketFunction": {
-      "name": string
-      "type": "sst.aws.Function"
     }
   }
 }
