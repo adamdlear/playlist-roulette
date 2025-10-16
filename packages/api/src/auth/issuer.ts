@@ -4,6 +4,9 @@ import { DynamoStorage } from "@openauthjs/openauth/storage/dynamo";
 import { Resource } from "sst/resource";
 import { subjects } from "./subjects";
 
+console.log("SPOTIFY_CLIENT_ID", process.env.SPOTIFY_CLIENT_ID!);
+console.log("SPOTIFY_CLIENT_SECRET", process.env.SPOTIFY_CLIENT_SECRET!);
+
 export const authServer = issuer({
 	subjects,
 	storage: DynamoStorage({
@@ -23,6 +26,9 @@ export const authServer = issuer({
 		}),
 	},
 	success: async (ctx, value) => {
+		console.log("ctx", ctx);
+		console.log("value", value);
+
 		if (value.provider === "spotify") {
 			// Fetch user info from Spotify
 			const response = await fetch("https://api.spotify.com/v1/me", {

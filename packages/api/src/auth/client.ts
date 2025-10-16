@@ -3,5 +3,5 @@ import { Resource } from "sst";
 
 export const authClient = createClient({
 	clientID: "hono-api",
-	issuer: Resource.HttpApi.url + "/auth",
+	issuer: Resource.HttpApi.url,
 });

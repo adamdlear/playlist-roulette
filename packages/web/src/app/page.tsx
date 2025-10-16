@@ -1,5 +1,6 @@
 import { CreatePartyButton } from "@/components/home/create-party-button";
 import { GameCodeForm } from "@/components/home/game-code-form";
+import { AuthArea } from "@/components/home/auth-area";
 import {
 	Card,
 	CardContent,
@@ -34,6 +35,7 @@ const HomePage = () => {
 						</div>
 					</CardContent>
 				</Card>
+				<AuthArea />
 			</div>
 		</div>
 	);

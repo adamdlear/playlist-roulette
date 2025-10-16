@@ -10,13 +10,12 @@ const app = new Hono();
 app.use("*", websocketMiddleware);
 app.use("/api/*", authMiddleware);
 
-app.route("/auth", authServer);
-
 app.get("/health", (c) => {
 	return c.json({ status: "ok" });
 });
 
 app.route("/game", game);
+app.route("/", authServer);
 
 export const handler = handle(app);
 

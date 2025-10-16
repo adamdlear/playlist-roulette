@@ -1,16 +1,16 @@
 "use server";
 
-import { auth } from "@/auth";
+import { auth } from "@/actions/auth";
 import { Resource } from "sst/resource";
 
 export const createGameAction = async () => {
-	const session = await auth();
+	const subject = await auth();
 
-	if (!session) {
+	if (!subject) {
 		throw new Error("could not find user");
 	}
 
-	const hostId = session.user.profileId;
+	const hostId = subject.properties.id;
 
 	const response = await fetch(`${Resource.HttpApi.url}/game`, {
 		method: "POST",

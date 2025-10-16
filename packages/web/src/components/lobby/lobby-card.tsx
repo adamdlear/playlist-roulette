@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth } from "@/actions/auth";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
 	Card,
@@ -18,8 +18,8 @@ interface LobbyCardProps {
 }
 
 export const LobbyCard = async ({ gameCode, players }: LobbyCardProps) => {
-	const session = await auth();
-	if (!session) {
+	const subject = await auth();
+	if (!subject) {
 		redirect("/");
 	}
 

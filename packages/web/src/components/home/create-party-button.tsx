@@ -1,14 +1,15 @@
 "use client";
 
+import { login } from "@/actions/auth";
 import { createGameAction } from "@/actions/game/create";
+import { useSession } from "@/components/providers/session-provider";
 import { Button } from "@/components/ui/button";
 import { useGame } from "@/hooks/use-game";
-import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const CreatePartyButton = () => {
-	const { data: session } = useSession();
+	const { session, status } = useSession();
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	const { joinGame } = useGame();
@@ -16,8 +17,12 @@ export const CreatePartyButton = () => {
 	const handleClick = async () => {
 		setIsLoading(true);
 
-		if (!session) {
-			await signIn("spotify", { callbackUrl: window.location.href });
+		if (status === "loading") {
+			return;
+		}
+
+		if (status === "unauthenticated" || !session) {
+			await login();
 			return;
 		}
 
@@ -33,14 +38,24 @@ export const CreatePartyButton = () => {
 		setIsLoading(false);
 	};
 
+	const buttonText = () => {
+		if (status === "loading") {
+			return "Loading...";
+		}
+		if (status === "unauthenticated") {
+			return "Sign in to create a party";
+		}
+		return "Create a Party";
+	};
+
 	return (
 		<Button
 			type="button"
 			onClick={handleClick}
-			disabled={isLoading}
+			disabled={isLoading || status === "loading"}
 			className="w-full"
 		>
-			{!session ? "Sign in to create a party" : "Create a Party"}
+			{buttonText()}
 		</Button>
 	);
 };

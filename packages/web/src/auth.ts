@@ -1,16 +1,29 @@
-import NextAuth from "next-auth";
-import Spotify from "next-auth/providers/spotify";
+import { createClient } from "@openauthjs/openauth/client";
+import { cookies as getCookies } from "next/headers";
+import { Resource } from "sst";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-	providers: [Spotify],
-	callbacks: {
-		jwt({ token, profile }) {
-			if (profile && profile.id) token.profileId = profile.id;
-			return token;
-		},
-		session({ token, session }) {
-			session.user.profileId = token.profileId as string;
-			return session;
-		},
-	},
+export const client = createClient({
+	clientID: "nextjs",
+	issuer: Resource.HttpApi.url,
 });
+
+export async function setTokens(access: string, refresh: string) {
+	const cookies = await getCookies();
+
+	cookies.set({
+		name: "access_token",
+		value: access,
+		httpOnly: true,
+		sameSite: "lax",
+		path: "/",
+		maxAge: 34560000,
+	});
+	cookies.set({
+		name: "refresh_token",
+		value: refresh,
+		httpOnly: true,
+		sameSite: "lax",
+		path: "/",
+		maxAge: 34560000,
+	});
+}

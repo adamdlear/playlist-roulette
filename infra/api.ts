@@ -8,7 +8,7 @@ export const honoFn = new sst.aws.Function("HonoHandler", {
 	link: [gameTable, connectionsTable, authTable, httpApi],
 	environment: {
 		SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
-		SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_ID,
+		SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
 	},
 });
 

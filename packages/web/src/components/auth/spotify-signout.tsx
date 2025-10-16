@@ -1,14 +1,9 @@
-import { signOut } from "@/auth";
+import { logout } from "@/actions/auth";
 import { Button } from "../ui/button";
 
 export const SpotifySignout = () => {
 	return (
-		<form
-			action={async () => {
-				"use server";
-				await signOut();
-			}}
-		>
+		<form action={logout}>
 			<Button>Signout of Spotify</Button>
 		</form>
 	);

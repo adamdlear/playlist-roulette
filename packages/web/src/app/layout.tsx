@@ -1,7 +1,5 @@
-import { auth } from "@/auth";
-import { SpotifySignout } from "@/components/auth/spotify-signout";
+import { SessionProvider } from "@/components/providers/session-provider";
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
 import { GameProvider } from "@/components/providers/game-provider";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -26,23 +24,14 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	const session = await auth();
-
 	return (
 		<html lang="en">
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<SessionProvider>
-					<GameProvider>
-						{children}
-						{session && (
-							<div className="flex justify-center">
-								<SpotifySignout />
-							</div>
-						)}
-					</GameProvider>
-				</SessionProvider>
+				<GameProvider>
+					<SessionProvider>{children}</SessionProvider>
+				</GameProvider>
 			</body>
 		</html>
 	);

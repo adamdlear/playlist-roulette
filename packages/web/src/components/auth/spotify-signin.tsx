@@ -1,15 +1,10 @@
-import { signIn } from "@/auth";
+import { login } from "@/actions/auth";
 import { cn } from "@/lib/utils";
 import { Button } from "../ui/button";
 
 export const SpotifySignin = ({ ...props }) => {
 	return (
-		<form
-			action={async (formData) => {
-				"use server";
-				await signIn("spotify", formData);
-			}}
-		>
+		<form action={login}>
 			<Button
 				type="submit"
 				variant="secondary"
