@@ -9,9 +9,6 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
-		"@auth/dynamodb-adapter": "^2.10.0",
-		"@aws-sdk/client-dynamodb": "^3.896.0",
-		"@aws-sdk/lib-dynamodb": "^3.896.0",
 		"@hookform/resolvers": "^3.10.0",
 		"@radix-ui/react-avatar": "^1.1.2",
 		"@radix-ui/react-dialog": "^1.1.4",

@@ -7,8 +7,6 @@
 	},
 	"dependencies": {
 		"@aws-sdk/client-apigatewaymanagementapi": "^3.864.0",
-		"@aws-sdk/client-dynamodb": "^3.859.0",
-		"@aws-sdk/util-dynamodb": "^3.868.0",
 		"@types/aws-lambda": "^8.10.150",
 		"jose": "^6.0.13",
 		"jsonwebtoken": "^9.0.2"
