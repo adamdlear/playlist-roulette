@@ -21,20 +21,18 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	const connect = async (gameId: string, isHost: boolean): Promise<void> => {
-		const wsResponse = await fetch("/api/ws");
-		const { url } = await wsResponse.json();
-
 		const tokenResponse = await fetch("/api/auth/token");
 		const { token } = await tokenResponse.json();
 		const encodedToken = encodeURIComponent(token);
+
+		const url = process.env.NEXT_PUBLIC_WS_URL;
+		if (!url) throw new Error("Missing environment variable for websocket url");
 
 		return new Promise((resolve, reject) => {
 			try {
 				wsRef.current = new WebSocket(
 					`${url}?token=${encodedToken}&gameId=${gameId}&isHost=${isHost}`,
 				);
-
-				console.log("successfully connected to websocket");
 
 				wsRef.current.onopen = async () => {
 					console.log("calling ws.open");
