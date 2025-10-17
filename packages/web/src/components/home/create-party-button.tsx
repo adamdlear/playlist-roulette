@@ -5,12 +5,10 @@ import { createGameAction } from "@/actions/game/create";
 import { useSession } from "@/components/providers/session-provider";
 import { Button } from "@/components/ui/button";
 import { useGame } from "@/hooks/use-game";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const CreatePartyButton = () => {
 	const { session, status } = useSession();
-	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 	const { joinGame } = useGame();
 
@@ -30,7 +28,6 @@ export const CreatePartyButton = () => {
 			const { gameId } = await createGameAction();
 			const isHost = true;
 			joinGame(gameId, isHost);
-			router.push(`/lobby/${gameId}`);
 		} catch (error) {
 			console.error(error);
 		}

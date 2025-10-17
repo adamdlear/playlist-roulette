@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { createContext, useEffect, useRef } from "react";
 
 interface GameContextType {
@@ -12,9 +13,11 @@ export const GameContext = createContext<GameContextType | undefined>(
 
 export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 	const wsRef = useRef<WebSocket | null>(null);
+	const router = useRouter();
 
 	const joinGame = async (gameId: string, isHost: boolean): Promise<void> => {
 		await connect(gameId, isHost);
+		router.push(`/lobby/${gameId}`);
 	};
 
 	const connect = async (gameId: string, isHost: boolean): Promise<void> => {

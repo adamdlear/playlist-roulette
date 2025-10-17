@@ -2,13 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowUp } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "../ui/button";
-import { Form, FormControl, FormField, FormItem } from "../ui/form";
-import { GameCodeInput } from "./game-code-input";
+import { GameCodeInput } from "@/components/home/game-code-input";
+import { Button } from "@/components/ui/button";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { useGame } from "@/hooks/use-game";
 
 const FormSchema = z.object({
 	code: z
@@ -18,7 +18,7 @@ const FormSchema = z.object({
 });
 
 export const GameCodeForm = () => {
-	const router = useRouter();
+	const { joinGame } = useGame();
 
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
@@ -28,8 +28,7 @@ export const GameCodeForm = () => {
 	});
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		console.log(`Joining game with code ${data.code}`);
-		router.push(`/lobby/${data.code}`);
+		joinGame(data.code, false);
 	};
 
 	return (
