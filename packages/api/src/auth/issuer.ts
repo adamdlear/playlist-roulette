@@ -4,9 +4,6 @@ import { DynamoStorage } from "@openauthjs/openauth/storage/dynamo";
 import { Resource } from "sst/resource";
 import { subjects } from "./subjects";
 
-console.log("SPOTIFY_CLIENT_ID", process.env.SPOTIFY_CLIENT_ID!);
-console.log("SPOTIFY_CLIENT_SECRET", process.env.SPOTIFY_CLIENT_SECRET!);
-
 export const authServer = issuer({
 	subjects,
 	storage: DynamoStorage({

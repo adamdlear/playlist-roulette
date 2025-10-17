@@ -18,12 +18,11 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	const connect = async (gameId: string, isHost: boolean): Promise<void> => {
-		const getWsUrlResponse = await fetch("/api/ws");
-		const { url } = await getWsUrlResponse.json();
+		const wsResponse = await fetch("/api/ws");
+		const { url } = await wsResponse.json();
 
-		const res = await fetch("/api/token");
-		if (!res.ok) throw new Error("Failed to fetch JWT");
-		const { token } = await res.json();
+		const tokenResponse = await fetch("/api/auth/token");
+		const { token } = await tokenResponse.json();
 		const encodedToken = encodeURIComponent(token);
 
 		return new Promise((resolve, reject) => {

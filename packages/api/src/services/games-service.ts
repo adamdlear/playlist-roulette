@@ -34,6 +34,41 @@ export const createGame = async (hostId: string) => {
 	}
 };
 
+export const addPlayerToGame = async (
+	gameId: string,
+	connectionId: string,
+	userId: string,
+) => {
+	const ddbDocClient = getClient();
+
+	const updateGameCommand = new UpdateCommand({
+		TableName: Resource.Games.name,
+		Key: {
+			PK: `GAME#${gameId}`,
+		},
+		UpdateExpression:
+			"SET players = list_append(if_not_exists(players, :emptyList), :player)",
+		ExpressionAttributeValues: {
+			":player": [
+				{
+					connectionId: connectionId,
+					userId: userId,
+				},
+			],
+			":emptyList": [],
+		},
+	});
+
+	try {
+		await ddbDocClient.send(updateGameCommand);
+	} catch (error) {
+		console.error(error);
+		throw new HTTPException(400, {
+			message: `Error adding player to game: ${error}`,
+		});
+	}
+};
+
 export const startGame = async (gameId: string) => {
 	const ddbDocClient = getClient();
 
