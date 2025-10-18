@@ -14,6 +14,11 @@ export const honoFn = new sst.aws.Function("HonoHandler", {
 
 httpApi.route("ANY /{proxy+}", honoFn.arn);
 
-wsApi.route("$connect", honoFn.arn);
-wsApi.route("$disconnect", honoFn.arn);
-wsApi.route("$default", honoFn.arn);
+export const wsFn = new sst.aws.Function("WebsocketHandler", {
+	handler: "packages/api/src/ws/handler.handler",
+	link: [httpApi, gameTable],
+});
+
+wsApi.route("$connect", wsFn.arn);
+wsApi.route("$disconnect", wsFn.arn);
+wsApi.route("$default", wsFn.arn);
