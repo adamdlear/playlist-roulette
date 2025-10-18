@@ -23,9 +23,6 @@ export const authServer = issuer({
 		}),
 	},
 	success: async (ctx, value) => {
-		console.log("ctx", ctx);
-		console.log("value", value);
-
 		if (value.provider === "spotify") {
 			// Fetch user info from Spotify
 			const response = await fetch("https://api.spotify.com/v1/me", {
@@ -36,10 +33,12 @@ export const authServer = issuer({
 
 			const spotifyUser = await response.json();
 
+			console.log("spotify user", spotifyUser);
+
 			return ctx.subject("user", {
 				id: spotifyUser.id,
-				email: spotifyUser.email,
-				spotifyId: spotifyUser.id,
+				name: spotifyUser.display_name,
+				image: spotifyUser.images[0].url,
 			});
 		}
 

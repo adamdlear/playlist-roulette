@@ -2,6 +2,8 @@ import { PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { HTTPException } from "hono/http-exception";
 import { Resource } from "sst";
 import { getClient } from "../db/client";
+import { VerifyResult } from "@openauthjs/openauth/client";
+import { User } from "@/auth/subjects";
 
 const generateGameId = () => {
 	return Math.floor(Math.random() * 10000)
@@ -37,7 +39,7 @@ export const createGame = async (hostId: string) => {
 export const addPlayerToGame = async (
 	gameId: string,
 	connectionId: string,
-	userId: string,
+	user: User,
 ) => {
 	const ddbDocClient = getClient();
 
@@ -52,7 +54,7 @@ export const addPlayerToGame = async (
 			":player": [
 				{
 					connectionId: connectionId,
-					userId: userId,
+					...user,
 				},
 			],
 			":emptyList": [],

@@ -32,7 +32,7 @@ export const handleConnect = async (
 	// @ts-ignore
 	const { connectionId } = event.requestContext;
 
-	await addPlayerToGame(gameId, connectionId, verified.subject.properties.id);
+	await addPlayerToGame(gameId, connectionId, verified.subject.properties);
 
 	return { statusCode: 200 };
 };
