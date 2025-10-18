@@ -1,6 +1,7 @@
 import { authClient } from "@/auth/client";
 import { subjects } from "@/auth/subjects";
 import { addPlayerToGame } from "@/services/games-service";
+import { sendMessage } from "@/ws/client";
 import {
 	APIGatewayProxyStructuredResultV2,
 	APIGatewayProxyEventV2,
@@ -32,7 +33,18 @@ export const handleConnect = async (
 	// @ts-ignore
 	const { connectionId } = event.requestContext;
 
-	await addPlayerToGame(gameId, connectionId, verified.subject.properties);
+	const players = await addPlayerToGame(
+		gameId,
+		connectionId,
+		verified.subject.properties,
+	);
+
+	for (const player of players) {
+		await sendMessage(player.connectionId, {
+			type: "player-joined",
+			body: { players },
+		});
+	}
 
 	return { statusCode: 200 };
 };

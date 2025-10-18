@@ -59,10 +59,12 @@ export const addPlayerToGame = async (
 			],
 			":emptyList": [],
 		},
+		ReturnValues: "ALL_NEW",
 	});
 
 	try {
-		await ddbDocClient.send(updateGameCommand);
+		const { Attributes } = await ddbDocClient.send(updateGameCommand);
+		return Attributes?.players ?? [];
 	} catch (error) {
 		console.error(error);
 		throw new HTTPException(400, {

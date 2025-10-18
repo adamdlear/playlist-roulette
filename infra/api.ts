@@ -16,7 +16,7 @@ httpApi.route("ANY /{proxy+}", honoFn.arn);
 
 export const wsFn = new sst.aws.Function("WebsocketHandler", {
 	handler: "packages/api/src/ws/handler.handler",
-	link: [httpApi, gameTable],
+	link: [httpApi, wsApi, gameTable],
 });
 
 wsApi.route("$connect", wsFn.arn);

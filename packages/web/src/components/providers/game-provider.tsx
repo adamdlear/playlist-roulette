@@ -1,9 +1,11 @@
 "use client";
 
+import { User } from "@/subjects";
 import { useRouter } from "next/navigation";
-import { createContext, useEffect, useRef } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 
 interface GameContextType {
+	players: User[];
 	joinGame: (gameId: string, isHost: boolean) => Promise<void>;
 }
 
@@ -12,6 +14,7 @@ export const GameContext = createContext<GameContextType | undefined>(
 );
 
 export const GameProvider = ({ children }: { children: React.ReactNode }) => {
+	const [players, setPlayers] = useState<User[]>([]);
 	const wsRef = useRef<WebSocket | null>(null);
 	const router = useRouter();
 
@@ -40,10 +43,16 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 				};
 
 				wsRef.current.onmessage = (event: MessageEvent<string>) => {
-					console.log(
-						"calling ws.message with message ",
-						JSON.parse(event.data),
-					);
+					const message = JSON.parse(event.data);
+					console.log("calling ws.message with message ", message);
+
+					switch (message.type) {
+						case "player-joined":
+							setPlayers(message.body.players);
+							break;
+						default:
+							console.log("unknown message type", message.type);
+					}
 					resolve();
 				};
 
@@ -76,6 +85,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 	}, []);
 
 	const contextValue = {
+		players,
 		joinGame,
 	};
 

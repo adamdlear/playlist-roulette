@@ -1,4 +1,5 @@
-import { auth } from "@/actions/auth";
+"use client";
+
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
 	Card,
@@ -8,20 +9,15 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import type { Player } from "@/types/player";
-import { redirect } from "next/navigation";
+import { useGame } from "@/hooks/use-game";
 import { StartGameButton } from "./start-game-button";
 
 interface LobbyCardProps {
 	gameCode: string;
-	players: Player[];
 }
 
-export const LobbyCard = async ({ gameCode, players }: LobbyCardProps) => {
-	const subject = await auth();
-	if (!subject) {
-		redirect("/");
-	}
+export const LobbyCard = ({ gameCode }: LobbyCardProps) => {
+	const { players } = useGame();
 
 	return (
 		<Card className="w-[600px]">
@@ -40,13 +36,13 @@ export const LobbyCard = async ({ gameCode, players }: LobbyCardProps) => {
 						<div key={index} className="flex items-center justify-between">
 							<div className="flex items-center space-x-4">
 								<Avatar>
-									<AvatarImage src={player.image ?? undefined} />
+									<AvatarImage src={player.image} />
 								</Avatar>
 								<h3 className="text-xl">{player.name}</h3>
 							</div>
-							<div className="px-4 py-2 bg-zinc-200 text-zinc-600 rounded">
-								{player.isHost ? "Host" : "Player"}
-							</div>
+							{/* <div className="px-4 py-2 bg-zinc-200 text-zinc-600 rounded"> */}
+							{/* 	{player.isHost ? "Host" : "Player"} */}
+							{/* </div> */}
 						</div>
 					))}
 				</div>
