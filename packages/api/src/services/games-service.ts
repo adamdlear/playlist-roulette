@@ -5,6 +5,7 @@ import { Resource } from "sst";
 import { getClient } from "../db/client";
 import {
 	deletePlayerConnection,
+	getPlayerConnection,
 	putPlayerConnection,
 } from "./connections-service";
 
@@ -12,6 +13,27 @@ const generateGameId = () => {
 	return Math.floor(Math.random() * 10000)
 		.toString()
 		.padStart(4, "0");
+};
+
+export const getGame = async (gameId: string) => {
+	const ddbDocClient = getClient();
+
+	const getGameCommand = new GetCommand({
+		TableName: Resource.Games.name,
+		Key: {
+			PK: `GAME#${gameId}`,
+		},
+	});
+
+	try {
+		const { Item: game } = await ddbDocClient.send(getGameCommand);
+		return game;
+	} catch (error) {
+		console.error(error);
+		throw new HTTPException(400, {
+			message: `Error getting game: ${error}`,
+		});
+	}
 };
 
 export const createGame = async (hostId: string) => {
@@ -117,12 +139,15 @@ export const removePlayerFromGame = async (connectionId: string) => {
 			ExpressionAttributeValues: {
 				":players": updatedPlayers,
 			},
+			ReturnValues: "ALL_NEW",
 		});
 
-		await Promise.all([
+		const [{ Attributes }, _] = await Promise.all([
 			ddbDocClient.send(updateGameCommand),
 			deletePlayerConnection(connectionId),
 		]);
+
+		return Attributes?.players ?? [];
 	} catch (error) {
 		console.error(error);
 	}

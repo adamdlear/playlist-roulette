@@ -4,6 +4,7 @@ import {
 } from "aws-lambda";
 import { handleConnect } from "@/ws/routes/connect";
 import { handleDisconnect } from "@/ws/routes/disconnect";
+import { handleGetPlayers } from "@/ws/routes/get-players";
 
 export const handler = async (
 	event: APIGatewayProxyEventV2,
@@ -18,6 +19,10 @@ export const handler = async (
 			return handleDisconnect(event);
 
 		case "$default":
+			const body = JSON.parse(event.body ?? "{}");
+			if (body.action === "get-players") {
+				return handleGetPlayers(event);
+			}
 			break;
 	}
 

@@ -2,10 +2,25 @@ import { Resource } from "sst";
 import {
 	DeleteCommand,
 	DeleteCommandOutput,
+	GetCommand,
+	GetCommandOutput,
 	PutCommand,
 	PutCommandOutput,
 } from "@aws-sdk/lib-dynamodb";
 import { getClient } from "@/db/client";
+
+export const getPlayerConnection = (
+	connectionId: string,
+): Promise<GetCommandOutput> => {
+	const ddbDocClient = getClient();
+	const getConnCommand = new GetCommand({
+		TableName: Resource.Connections.name,
+		Key: {
+			PK: connectionId,
+		},
+	});
+	return ddbDocClient.send(getConnCommand);
+};
 
 export const putPlayerConnection = (
 	connectionId: string,

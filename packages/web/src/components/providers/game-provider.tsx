@@ -42,6 +42,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 
 				wsRef.current.onopen = async () => {
 					console.log("calling ws.open");
+					wsRef.current?.send(JSON.stringify({ action: "get-players" }));
 					resolve();
 				};
 
@@ -55,6 +56,9 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 
 					switch (message.type) {
 						case "player-joined":
+							setPlayers(message.body.players);
+							break;
+						case "player-disconnected":
 							setPlayers(message.body.players);
 							break;
 						default:
