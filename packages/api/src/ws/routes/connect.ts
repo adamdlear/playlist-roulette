@@ -40,10 +40,12 @@ export const handleConnect = async (
 	);
 
 	for (const player of players) {
-		await sendMessage(player.connectionId, {
-			type: "player-joined",
-			body: { players },
-		});
+		if (player.connectionId !== connectionId) {
+			await sendMessage(player.connectionId, {
+				type: "player-joined",
+				body: { players },
+			});
+		}
 	}
 
 	return { statusCode: 200 };

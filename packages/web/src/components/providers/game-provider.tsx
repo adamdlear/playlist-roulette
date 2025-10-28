@@ -45,6 +45,10 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 					resolve();
 				};
 
+				wsRef.current.onclose = (event) => {
+					console.log("calling ws.onclose with event ", event);
+				};
+
 				wsRef.current.onmessage = (event: MessageEvent<string>) => {
 					const message = JSON.parse(event.data);
 					console.log("calling ws.message with message ", message);
