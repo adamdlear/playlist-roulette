@@ -1,3 +1,4 @@
+import { removePlayerFromGame } from "@/services/games-service";
 import {
 	APIGatewayProxyStructuredResultV2,
 	APIGatewayProxyEventV2,
@@ -6,5 +7,8 @@ import {
 export const handleDisconnect = async (
 	event: APIGatewayProxyEventV2,
 ): Promise<APIGatewayProxyStructuredResultV2> => {
-	return {};
+	// @ts-ignore
+	const { connectionId } = event.requestContext;
+	await removePlayerFromGame(connectionId);
+	return { statusCode: 200 };
 };

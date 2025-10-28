@@ -10,8 +10,12 @@ export const authTable = new sst.aws.Dynamo("AuthStorage", {
 export const connectionsTable = new sst.aws.Dynamo("Connections", {
 	fields: {
 		PK: "string",
+		gameId: "string",
 	},
 	primaryIndex: { hashKey: "PK" },
+	globalIndexes: {
+		"gameId-index": { hashKey: "gameId" },
+	},
 	ttl: "ttl",
 });
 

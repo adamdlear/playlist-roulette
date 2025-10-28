@@ -1,9 +1,12 @@
-import { PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
+import { User } from "@/auth/subjects";
+import { GetCommand, PutCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { HTTPException } from "hono/http-exception";
 import { Resource } from "sst";
 import { getClient } from "../db/client";
-import { VerifyResult } from "@openauthjs/openauth/client";
-import { User } from "@/auth/subjects";
+import {
+	deletePlayerConnection,
+	putPlayerConnection,
+} from "./connections-service";
 
 const generateGameId = () => {
 	return Math.floor(Math.random() * 10000)
@@ -63,13 +66,65 @@ export const addPlayerToGame = async (
 	});
 
 	try {
-		const { Attributes } = await ddbDocClient.send(updateGameCommand);
+		const [{ Attributes }, _] = await Promise.all([
+			ddbDocClient.send(updateGameCommand),
+			putPlayerConnection(connectionId, gameId),
+		]);
+		console.log(Attributes?.players);
 		return Attributes?.players ?? [];
 	} catch (error) {
 		console.error(error);
 		throw new HTTPException(400, {
 			message: `Error adding player to game: ${error}`,
 		});
+	}
+};
+
+export const removePlayerFromGame = async (connectionId: string) => {
+	const ddbDocClient = getClient();
+	const getConnCommand = new GetCommand({
+		TableName: Resource.Connections.name,
+		Key: {
+			PK: connectionId,
+		},
+	});
+
+	try {
+		const { Item: connection } = await ddbDocClient.send(getConnCommand);
+		if (!connection) return;
+
+		const { gameId } = connection;
+		const getGameCommand = new GetCommand({
+			TableName: Resource.Games.name,
+			Key: {
+				PK: `GAME#${gameId}`,
+			},
+		});
+
+		const { Item: game } = await ddbDocClient.send(getGameCommand);
+		if (!game || !game.players) return;
+
+		const updatedPlayers = game.players.filter(
+			(player: any) => player.connectionId !== connectionId,
+		);
+
+		const updateGameCommand = new UpdateCommand({
+			TableName: Resource.Games.name,
+			Key: {
+				PK: `GAME#${gameId}`,
+			},
+			UpdateExpression: "SET players = :players",
+			ExpressionAttributeValues: {
+				":players": updatedPlayers,
+			},
+		});
+
+		await Promise.all([
+			ddbDocClient.send(updateGameCommand),
+			deletePlayerConnection(connectionId),
+		]);
+	} catch (error) {
+		console.error(error);
 	}
 };
 
