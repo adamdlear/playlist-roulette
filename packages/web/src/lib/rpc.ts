@@ -1,5 +1,5 @@
 import { hc } from "hono/client";
-import type { AppType } from "../../../api/src/index";
+import type { AppType } from "api/index";
 
 const getToken = async () => {
 	const response = await fetch("/api/auth/token");

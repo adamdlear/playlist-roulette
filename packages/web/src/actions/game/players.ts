@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/actions/auth";
-import { Player } from "@/types/player";
+import { Player } from "api/types/player";
 import { Resource } from "sst";
 
 export const addPlayerToGame = async (gameId: string, player: Player) => {

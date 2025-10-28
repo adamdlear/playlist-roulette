@@ -2,12 +2,12 @@
 	"name": "playlist-roulette",
 	"version": "0.0.0",
 	"private": true,
-	"workspaces": ["packages/*"],
 	"scripts": {
+		"build": "tsc -b",
 		"dev": "sst dev",
 		"prepare": "husky",
 		"format": "biome format --write",
-		"test": "yarn workspace api test ; yarn workspace functions test"
+		"test": "pnpm -r test"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",

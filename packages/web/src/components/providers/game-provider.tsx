@@ -4,7 +4,7 @@ import { User } from "@/subjects";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useRef, useState } from "react";
 
-interface GameContextType {
+export interface GameContextType {
 	players: User[];
 	joinGame: (gameId: string, isHost: boolean) => Promise<void>;
 }

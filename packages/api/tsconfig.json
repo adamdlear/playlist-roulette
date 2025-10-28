@@ -1,15 +1,16 @@
 {
+	"extends": "../../tsconfig.base.json",
 	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
 		"moduleResolution": "Bundler",
-		"strict": true,
-		"skipLibCheck": true,
-		"types": ["node"],
+		"types": ["node", "sst"],
 		"jsx": "react-jsx",
 		"jsxImportSource": "hono/jsx",
 		"paths": {
 			"@/*": ["./src/*"]
-		}
-	}
+		},
+		"composite": true,
+		"outDir": "dist"
+	},
+	"include": ["src/**/*.ts", "../../sst-env.d.ts"],
+	"references": []
 }
