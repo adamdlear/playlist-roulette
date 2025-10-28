@@ -2,6 +2,7 @@
 
 import { client, setTokens } from "@/auth";
 import { subjects } from "@/subjects";
+import { revalidatePath } from "next/cache";
 import { cookies as getCookies, headers as getHeaders } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -50,7 +51,6 @@ export async function login() {
 		`${protocol}://${host}/api/auth/callback`,
 		"code",
 	);
-	console.log("url", url);
 	redirect(url);
 }
 
@@ -59,5 +59,6 @@ export async function logout() {
 	cookies.delete("access_token");
 	cookies.delete("refresh_token");
 
+	revalidatePath("/");
 	redirect("/");
 }

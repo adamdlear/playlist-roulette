@@ -33,8 +33,6 @@ export const authServer = issuer({
 
 			const spotifyUser = await response.json();
 
-			console.log("spotify user", spotifyUser);
-
 			return ctx.subject("user", {
 				id: spotifyUser.id,
 				name: spotifyUser.display_name,

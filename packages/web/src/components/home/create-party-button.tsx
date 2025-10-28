@@ -1,36 +1,37 @@
 "use client";
 
 import { login } from "@/actions/auth";
-import { createGameAction } from "@/actions/game/create";
 import { useSession } from "@/components/providers/session-provider";
 import { Button } from "@/components/ui/button";
 import { useGame } from "@/hooks/use-game";
+import { createClient } from "@/lib/rpc";
 import { useState } from "react";
 
 export const CreatePartyButton = () => {
-	const { session, status } = useSession();
+	const { status } = useSession();
 	const [isLoading, setIsLoading] = useState(false);
 	const { joinGame } = useGame();
 
 	const handleClick = async () => {
 		setIsLoading(true);
 
-		if (status === "loading") {
-			return;
-		}
-
-		if (status === "unauthenticated" || !session) {
+		if (status === "unauthenticated") {
 			await login();
 			return;
 		}
 
-		try {
-			const { gameId } = await createGameAction();
-			const isHost = true;
-			joinGame(gameId, isHost);
-		} catch (error) {
-			console.error(error);
+		const isHost = true;
+
+		const client = await createClient();
+		const createGameResponse = await client.api.game.$post();
+		if (!createGameResponse.ok) {
+			console.error("Could not create game");
+			return;
 		}
+
+		const { gameId } = await createGameResponse.json();
+
+		joinGame(gameId, isHost);
 
 		setIsLoading(false);
 	};

@@ -18,7 +18,10 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 	const wsRef = useRef<WebSocket | null>(null);
 	const router = useRouter();
 
-	const joinGame = async (gameId: string, isHost: boolean): Promise<void> => {
+	const joinGame = async (
+		gameId: string,
+		isHost: boolean = false,
+	): Promise<void> => {
 		await connect(gameId, isHost);
 		router.push(`/lobby/${gameId}`);
 	};

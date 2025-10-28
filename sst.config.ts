@@ -10,17 +10,22 @@ export default $config({
 		};
 	},
 	async run() {
-		const { httpApi, wsApi } = await import("./infra/api");
+		const { httpApi, wsApi, createHonoFn } = await import("./infra/api");
 		await import("./infra/tables");
 
-		new sst.aws.Nextjs("PlaylistRoulette", {
+		const web = new sst.aws.Nextjs("PlaylistRoulette", {
 			path: "./packages/web/",
 			link: [httpApi, wsApi],
 			environment: {
 				NEXT_PUBLIC_WS_URL: wsApi.url,
+				NEXT_PUBLIC_API_URL: httpApi.url,
 			},
 		});
 
-		return {};
+		const honoFn = createHonoFn(web.url);
+
+		return {
+			WebUrl: web.url,
+		};
 	},
 });
