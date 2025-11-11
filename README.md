@@ -6,6 +6,7 @@ A party game to see how well you know your friends' music taste
 
 The game's interface is a Next.js application and all cloud resources were created using SST.
 
-Game diagram:
+General Infrastructure:
 
-![](https://github.com/adamdlear/my-diagrams/blob/main/playlist-roulette/playlist_roulette.png?raw=true)
+<img width="1728" height="1336" alt="image" src="https://github.com/user-attachments/assets/12f93dcd-122b-4cd2-9ef9-c974c0951ff8" />
+
