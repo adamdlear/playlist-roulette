@@ -8,10 +8,10 @@ export const wsApi = new sst.aws.ApiGatewayWebSocket("WebsocketApi");
 export function createHonoFn(webAppUrl: string) {
 	const honoFn = new sst.aws.Function("HonoHandler", {
 		handler: "packages/api/src/index.handler",
-		link: [gameTable, connectionsTable, authTable, httpApi],
+		link: [gameTable, authTable, httpApi],
 		environment: {
-			SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID,
-			SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
+			SPOTIFY_CLIENT_ID: process.env.SPOTIFY_CLIENT_ID!,
+			SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET!,
 			WEB_APP_URL: webAppUrl,
 		},
 	});

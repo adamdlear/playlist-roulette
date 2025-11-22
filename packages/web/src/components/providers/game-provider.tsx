@@ -7,6 +7,7 @@ import { createContext, useEffect, useRef, useState } from "react";
 export interface GameContextType {
 	players: User[];
 	joinGame: (gameId: string, isHost: boolean) => Promise<void>;
+	startGame: (gameId: string) => Promise<void>;
 }
 
 export const GameContext = createContext<GameContextType | undefined>(
@@ -24,6 +25,10 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 	): Promise<void> => {
 		await connect(gameId, isHost);
 		router.push(`/lobby/${gameId}`);
+	};
+
+	const startGame = async (gameId: string) => {
+		wsRef.current?.send(JSON.stringify({ action: "start-game", gameId }));
 	};
 
 	const connect = async (gameId: string, isHost: boolean): Promise<void> => {
@@ -52,7 +57,6 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 
 				wsRef.current.onmessage = (event: MessageEvent<string>) => {
 					const message = JSON.parse(event.data);
-					console.log("calling ws.message with message ", message);
 
 					switch (message.type) {
 						case "player-joined":
@@ -60,6 +64,9 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 							break;
 						case "player-disconnected":
 							setPlayers(message.body.players);
+							break;
+						case "game-started":
+							router.push(`/game/${message.body.gameId}`);
 							break;
 						default:
 							console.log("unknown message type", message.type);
@@ -98,6 +105,7 @@ export const GameProvider = ({ children }: { children: React.ReactNode }) => {
 	const contextValue = {
 		players,
 		joinGame,
+		startGame,
 	};
 
 	return (

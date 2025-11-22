@@ -8,6 +8,7 @@ import {
 	getPlayerConnection,
 	putPlayerConnection,
 } from "./connections-service";
+import { Game } from "@/types/game";
 
 const generateGameId = () => {
 	return Math.floor(Math.random() * 10000)
@@ -27,7 +28,7 @@ export const getGame = async (gameId: string) => {
 
 	try {
 		const { Item: game } = await ddbDocClient.send(getGameCommand);
-		return game;
+		return game as Game;
 	} catch (error) {
 		console.error(error);
 		throw new HTTPException(400, {
@@ -92,7 +93,6 @@ export const addPlayerToGame = async (
 			ddbDocClient.send(updateGameCommand),
 			putPlayerConnection(connectionId, gameId),
 		]);
-		console.log(Attributes?.players);
 		return Attributes?.players ?? [];
 	} catch (error) {
 		console.error(error);
@@ -159,7 +159,7 @@ export const startGame = async (gameId: string) => {
 	const updateGameCommand = new UpdateCommand({
 		TableName: Resource.Games.name,
 		Key: {
-			gameId: `GAME#${gameId}`,
+			PK: `GAME#${gameId}`,
 		},
 		UpdateExpression: "SET GameStatus = :status, StartTime = :startTime",
 		ExpressionAttributeValues: {

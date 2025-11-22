@@ -4,4 +4,5 @@ export interface Player {
 	email?: string | null;
 	image?: string | null;
 	isHost?: boolean | null;
+	connectionId?: string | null;
 }

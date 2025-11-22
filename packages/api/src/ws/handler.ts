@@ -5,6 +5,7 @@ import {
 import { handleConnect } from "@/ws/routes/connect";
 import { handleDisconnect } from "@/ws/routes/disconnect";
 import { handleGetPlayers } from "@/ws/routes/get-players";
+import { handleStartGame } from "./routes/start-game";
 
 export const handler = async (
 	event: APIGatewayProxyEventV2,
@@ -22,6 +23,9 @@ export const handler = async (
 			const body = JSON.parse(event.body ?? "{}");
 			if (body.action === "get-players") {
 				return handleGetPlayers(event);
+			}
+			if (body.action === "start-game") {
+				return handleStartGame(event);
 			}
 			break;
 	}
