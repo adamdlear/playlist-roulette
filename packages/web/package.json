@@ -26,7 +26,9 @@
 		"tailwind-merge": "^2.6.0",
 		"tailwindcss-animate": "^1.0.7",
 		"zod": "^3.24.1",
-		"api": "workspace:*"
+		"api": "workspace:*",
+		"@openauthjs/openauth": "^0.4.3",
+		"valibot": "^1.1.0"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",
