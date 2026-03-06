@@ -14,6 +14,7 @@ export function createHonoFn(webAppUrl: string) {
 			SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET!,
 			WEB_APP_URL: webAppUrl,
 		},
+		runtime: "nodejs22.x",
 	});
 
 	httpApi.route("ANY /{proxy+}", honoFn.arn);
@@ -23,6 +24,7 @@ export function createHonoFn(webAppUrl: string) {
 export const wsFn = new sst.aws.Function("WebsocketHandler", {
 	handler: "packages/api/src/ws/handler.handler",
 	link: [httpApi, wsApi, gameTable, connectionsTable],
+	runtime: "nodejs22.x",
 });
 
 wsApi.route("$connect", wsFn.arn);
